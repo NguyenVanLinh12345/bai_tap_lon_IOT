@@ -1,0 +1,156 @@
+.Header {
+
+    .main_header,
+    .background_header {
+        height: 7.2rem;
+    }
+
+    .main_header {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        box-shadow: 0 0.4rem 0.4rem 0.1rem var(--shadow);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+        .logo {
+            height: 5rem;
+            width: 5rem;
+            background-position: center;
+            background-size: cover;
+            border: 0.1rem solid var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0.1rem 0.3rem 0.2rem var(--shadow);
+            cursor: pointer;
+        }
+
+        .left_side {
+            padding-left: 2rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            ul {
+                margin-left: 2rem;
+
+                li {
+                    list-style-type: none;
+
+                    a {
+                        font-size: 1.4rem;
+                        text-decoration: none;
+                        color: black;
+                        padding: 1.2rem 1.6rem;
+                        border-radius: 0.8rem;
+                        margin-right: 1.2rem;
+                        transition: background-color 0.1s;
+
+                        &:hover {
+                            background-color: var(--blur_gray);
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+
+        .right_side {
+            padding-right: 2rem;
+
+            .drop_list {
+                position: relative;
+
+                .list {
+                    display: none;
+                    position: absolute;
+                    // display: block;
+                    padding: 0.4rem;
+                    width: 16rem;
+                    bottom: -8rem;
+                    right: 2rem;
+                    background-color: white;
+                    box-shadow: 0 0.2rem 0.6rem 0.2rem var(--shadow);
+
+                    li {
+                        list-style-type: none;
+
+                        button {
+                            background-color: transparent;
+                            padding: 0.8rem 0.4rem;
+                            border: none;
+                            border-bottom: 0.1rem solid var(--gray);
+                            display: block;
+                            font-size: 1.4rem;
+                            width: 100%;
+                            margin-top: 0.4rem;
+                            cursor: pointer;
+
+                            &:hover {
+                                background-color: var(--blur_gray);
+                            }
+                        }
+                    }
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: -1rem;
+                        right: -1rem;
+                        height: 2rem;
+                        width: 4rem;
+                        display: block;
+                        // background-color: red;
+                    }
+                }
+
+                &:hover .list {
+                    display: block;
+                }
+            }
+
+        }
+    }
+
+    .detail_information_container {
+        position: fixed;
+        // z-index: 2;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .detail_information {
+            background-color: white;
+            width: 60rem;
+            min-height: 60rem;
+            border-radius: 2rem;
+            padding: 1.6rem;
+            position: relative;
+
+            .close_detail_icon {
+                position: absolute;
+                right: 1.6rem;
+                top: 1.6rem;
+                padding: 1.2rem;
+                border-radius: 0.4rem;
+                border: 0.1rem solid black;
+                font-size: 2rem;
+                font-weight: bold;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: var(--blue);
+                    color: white;
+                }
+            }
+        }
+    }
+}

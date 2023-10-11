@@ -1,0 +1,63 @@
+.TableBase {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+
+    .table {
+        width: 80%;
+        border-radius: 1rem;
+        border: 0.1rem solid var(--gray);
+        box-shadow: 0 0 0.4rem 0.1rem var(--gray);
+        overflow: hidden;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #8a8787;
+            color: white;
+        }
+
+        thead th {
+            padding: 10px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody td {
+            padding: 10px;
+            text-align: left;
+
+            .action_icon{
+                padding: 0.4rem 0.8rem;
+                margin-right: 0.8rem;
+                margin-top: 0.2rem;
+                margin-bottom: 0.2rem;
+                display: inline-block;
+                border-radius: 0.8rem;
+                text-align: center;
+                font-size: 2rem;
+                cursor: pointer;
+                
+                &.blue{
+                    background-color: rgb(146, 237, 216);
+                }
+
+                &.green{
+                    background-color: rgb(117, 237, 111);
+                }
+                &.red{
+                    background-color: rgb(246, 73, 73);
+                }
+
+                &:hover{
+                    opacity: 0.6;
+                }
+            }
+        }
+    }
+}

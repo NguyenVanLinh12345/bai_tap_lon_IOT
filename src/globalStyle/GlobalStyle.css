@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Roboto+Slab&display=swap');
+
+:root{
+    --black: rgb(0,0,0);
+    --blur_blue: rgb(212, 238, 253);
+    --blue: rgb(86, 193, 255);
+    --green: rgb(120, 255, 86);
+    --orange: rgb(253, 185, 112);
+    --gray: rgb(128, 128, 128);
+    --blur_gray: rgb(234, 234, 234);
+    --shadow: rgba(0, 0, 0, 0.2);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    font-size: 1.4rem;
+    text-rendering: optimizeSpeed;
+    /* background-color: rgb(245 245 245 / 36%); */
+}
