@@ -114,43 +114,4 @@
 
         }
     }
-
-    .detail_information_container {
-        position: fixed;
-        // z-index: 2;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.4);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .detail_information {
-            background-color: white;
-            width: 60rem;
-            min-height: 60rem;
-            border-radius: 2rem;
-            padding: 1.6rem;
-            position: relative;
-
-            .close_detail_icon {
-                position: absolute;
-                right: 1.6rem;
-                top: 1.6rem;
-                padding: 1.2rem;
-                border-radius: 0.4rem;
-                border: 0.1rem solid black;
-                font-size: 2rem;
-                font-weight: bold;
-                cursor: pointer;
-
-                &:hover {
-                    background-color: var(--blue);
-                    color: white;
-                }
-            }
-        }
-    }
 }

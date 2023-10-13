@@ -1,13 +1,14 @@
+import { Fragment } from "react";
 import Header from "../components/Header";
 import TableBase from "../components/base/TableBase"
 
 function Employees() {
 
     return (
-        <div>
+        <Fragment>
             <Header />
             <TableBase />
-        </div>
+        </Fragment>
     )
 }
 

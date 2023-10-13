@@ -22,3 +22,36 @@ function logout(callback) {
 }
 
 export { login, logout };
+
+
+// fetch("http://localhost:8080/api/login", {
+//                 method: 'POST',
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                 },
+//                 body: JSON.stringify({
+//                     email: email,
+//                     password: pass
+//                 })
+//             })
+//                 .then((response) => {
+//                     if (!response.ok) {
+//                         throw new Error("Sai mat khau hoac email");
+//                     }
+//                     return response.text();
+//                 })
+//                 .then((data) => {
+//                     document.querySelector("#token").value = data;
+//                 })
+//                 .catch((error) => alert(error.message));
+
+
+// fetch("http://localhost:8080/api/welcome", {
+//                 method: 'GET',
+//                 headers: {
+//                     'Authorization': `Bearer ${token}`
+//                 }
+//             })
+//                 .then((response) => response.text())
+//                 .then((data) => console.log(data))
+//                 .catch((error) => console.error(error))
