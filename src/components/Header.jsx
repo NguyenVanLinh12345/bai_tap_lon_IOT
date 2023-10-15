@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-
 import { HiOutlineLogout } from "react-icons/hi";
 
 import style from './Header.module.scss';
@@ -8,7 +7,7 @@ import user from '../assets/image/User-avatar.svg.png';
 
 import { logout } from '../function/AccountFunction';
 import { useState } from 'react';
-import Container from './Container';
+import Container from './base/Container';
 function Header() {
     const [detailOpenState, setDetailOpenState] = useState(false);
     const navigate = useNavigate();
@@ -21,8 +20,8 @@ function Header() {
                     </Link>
                     <ul>
                         <li>
-                            <Link to={"/login"}>Danh sách nhân viên</Link>
-                            <Link to={"/login"}>Danh sách máy ấp trứng</Link>
+                            <Link to={"/employee"}>Danh sách nhân viên</Link>
+                            <Link to={"/machine"}>Danh sách máy ấp trứng</Link>
                             <Link to={"/login"}>Danh sách máy ấp trứng (employee)</Link>
                         </li>
                     </ul>
@@ -43,7 +42,7 @@ function Header() {
             {
                 detailOpenState
                     ?
-                    <Container title={"Thông tin chi tiết"} closeContainer={()=>setDetailOpenState(false)}><div>hello nha</div></Container>
+                    <Container closeContainer={()=>setDetailOpenState(false)}><div>hello nha</div></Container>
                     : ""
             }
         </div>

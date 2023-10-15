@@ -5,13 +5,16 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './App';
 import GlobalStyle from "./globalStyle";
+import Provider from './myContext/Provider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GlobalStyle>
       <BrowserRouter>
-        <App />
+        <Provider>
+          <App />
+        </Provider>
       </BrowserRouter>
     </GlobalStyle>
   </React.StrictMode>

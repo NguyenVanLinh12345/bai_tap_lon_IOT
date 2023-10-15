@@ -1,12 +1,13 @@
 import { Fragment } from "react";
+import TableBase from "../components/base/TableBase";
 import Header from "../components/Header";
-import TableBase from "../components/base/TableBase"
 
-function Employees() {
+function Machines() {
+
     //demo data
     const urlFetch = "https://dummyjson.com/products";
     const urlDelete = "https://dummyjson.com/products/";
-    const title = "Nhân viên";
+    const title = "Máy ấp trứng";
     const colums = [
         {
             title: "Title",
@@ -48,4 +49,4 @@ function Employees() {
     )
 }
 
-export default Employees;
+export default Machines;
