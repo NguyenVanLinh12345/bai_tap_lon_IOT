@@ -1,20 +1,21 @@
-// import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useContext } from 'react';
 
-// import Login from './components/Login';
-// import Employees from './pages/Employees';
-// import Machines from './pages/Machines';
-// import Loading from './components/base/Loading';
-import ToastMessageProvider from './components/base/toast_message/ToastMessageProvider';
+import Login from './components/Login';
+import Employees from './pages/Employees';
+import Machines from './pages/Machines';
+import Loading from './components/base/Loading';
+import Home from './pages/Home';
 
 import Context from './myContext/Context';
 function App() {
   const [state, dispatch] = useContext(Context);
   return (
     <div className="App">
-      {/* <Routes>
+      <Routes>
         <Route path='/login' element={<Login />} />
-        <Route path='/*' element={<Employees />} />
+        <Route path='/*' element={<Home />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/employees' element={<Employees />} />
         <Route path='/machine' element={<Machines />} />
       </Routes>
@@ -25,8 +26,7 @@ function App() {
           <Loading></Loading>
           :
           null
-      } */}
-      <ToastMessageProvider />
+      }
     </div>
   );
 }

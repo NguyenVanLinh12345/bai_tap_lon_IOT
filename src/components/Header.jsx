@@ -33,7 +33,7 @@ function Header() {
         <div className={style.Header}>
             <div className={style.main_header}>
                 <div className={style.left_side}>
-                    <Link to={"/login"}>
+                    <Link to={"/home"}>
                         <div className={style.logo} style={{ backgroundImage: `url('${logo}')` }}></div>
                     </Link>
                     <ul>
