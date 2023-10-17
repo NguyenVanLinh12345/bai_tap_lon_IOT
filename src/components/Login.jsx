@@ -27,7 +27,6 @@ function AdminLogin() {
                     <span title='Xem mật khẩu' onClick={()=>setSeePass(!seePass)} className={style.password_icon}>{seePass ? <AiFillEye /> : <AiFillEyeInvisible />}</span>
                 </div>
 
-
                 <button onClick={()=>{login(email, password, ()=>navigate("/"))}} className={style.button_login}>Đăng nhập</button>
             </div>
         </div>

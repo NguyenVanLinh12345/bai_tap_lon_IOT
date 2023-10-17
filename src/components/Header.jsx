@@ -10,6 +10,24 @@ import { useState } from 'react';
 import Container from './base/Container';
 function Header() {
     const [detailOpenState, setDetailOpenState] = useState(false);
+    const listHeader = [
+        {
+            id: 1,
+            link: "/employee",
+            title: "Danh sách nhân viên"
+        },
+        {
+            id: 2,
+            link: "/machine",
+            title: "Danh sách máy ấp"
+        },
+        {
+            id: 1,
+            link: "/login",
+            title: "Danh sách máy ấp (client)"
+        }
+    ];
+    // const listDropDorwn = [];
     const navigate = useNavigate();
     return (
         <div className={style.Header}>
@@ -19,11 +37,13 @@ function Header() {
                         <div className={style.logo} style={{ backgroundImage: `url('${logo}')` }}></div>
                     </Link>
                     <ul>
-                        <li>
-                            <Link to={"/employee"}>Danh sách nhân viên</Link>
-                            <Link to={"/machine"}>Danh sách máy ấp trứng</Link>
-                            <Link to={"/login"}>Danh sách máy ấp trứng (employee)</Link>
-                        </li>
+                        {
+                            listHeader.map((value) => (
+                                <li>
+                                    <Link key={value.id} to={value.link}>{value.title}</Link>
+                                </li>
+                            ))
+                        }
                     </ul>
                 </div>
                 <div className={style.right_side}>
@@ -42,7 +62,7 @@ function Header() {
             {
                 detailOpenState
                     ?
-                    <Container closeContainer={()=>setDetailOpenState(false)}><div>hello nha</div></Container>
+                    <Container closeContainer={() => setDetailOpenState(false)}><div>hello nha</div></Container>
                     : ""
             }
         </div>

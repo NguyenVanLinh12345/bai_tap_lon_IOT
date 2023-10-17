@@ -32,11 +32,11 @@
         .left_side {
             padding-left: 2rem;
             display: flex;
-            justify-content: space-around;
             align-items: center;
-
+            
             ul {
                 margin-left: 2rem;
+                display: flex;
 
                 li {
                     list-style-type: none;
