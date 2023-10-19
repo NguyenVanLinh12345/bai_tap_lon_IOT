@@ -12,6 +12,7 @@
     --gray: rgb(128, 128, 128);
     --blur_gray: rgb(234, 234, 234);
     --shadow: rgba(0, 0, 0, 0.2);
+    --background: rgba(255, 255, 255);
 }
 
 *{

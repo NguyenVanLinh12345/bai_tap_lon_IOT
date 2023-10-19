@@ -22,8 +22,8 @@ function Header() {
             title: "Danh sách máy ấp"
         },
         {
-            id: 1,
-            link: "/login",
+            id: 3,
+            link: "/employee-machine",
             title: "Danh sách máy ấp (client)"
         }
     ];
@@ -39,8 +39,8 @@ function Header() {
                     <ul>
                         {
                             listHeader.map((value) => (
-                                <li>
-                                    <Link key={value.id} to={value.link}>{value.title}</Link>
+                                <li key={value.id}>
+                                    <Link to={value.link}>{value.title}</Link>
                                 </li>
                             ))
                         }

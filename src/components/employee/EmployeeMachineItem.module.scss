@@ -1,0 +1,40 @@
+.EmployeeMachineItem {
+    margin-top: 4rem;
+    margin-left: 4rem;
+
+    padding: 1.2rem 1.6rem;
+    box-shadow: 0 0 0.4rem 0.2rem var(--shadow);
+    display: inline-block;
+    border-radius: 2rem;
+    font-size: 1.6rem;
+    // width: 32rem;
+
+    .thong_so_container {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 1.2rem;
+        
+        .button{
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.4rem;
+            background-color: var(--orange);
+        }
+        .thong_so {
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.8rem;
+            font-weight: bold;
+        }
+        .nomal{
+            box-shadow: 0 0 0.4rem 0.2rem rgba(69, 75, 236, 0.4);
+            background-color: rgba(154, 162, 224, 0.2);
+        }
+        .activate{
+            box-shadow: 0 0 0.4rem 0.2rem rgba(20, 232, 34, 0.4);
+            background-color: rgba(119, 255, 56, 0.3);
+        }
+        .disable{
+            box-shadow: 0 0 0.4rem 0.2rem rgba(236, 69, 69, 0.4);
+            background-color: rgba(224, 154, 154, 0.2);
+        }
+    }
+}

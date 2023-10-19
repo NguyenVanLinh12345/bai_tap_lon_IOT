@@ -1,13 +1,38 @@
 import style from './ToastMessageProvider.module.scss';
 
+import { useState } from 'react';
+
+import { v4 as uuidv4 } from 'uuid';
+
 import ToastMessageItem from './ToastMessageItem';
 
-function ToastMessageProvider(){
+import ToastMessageContext from './ToastMessageContext';
+
+function ToastMessageProvider({ children }) {
+    const [toasts, setToasts] = useState([]);
+
+    const showToast = (title, message, type) => {
+        const newToast = { id: uuidv4(), title, message, type};
+        setToasts([...toasts, newToast]);
+    };
 
     return (
-        <div className='ToastMessageProvider'>
-            <ToastMessageItem />
-        </div>
+        <ToastMessageContext.Provider value={showToast}>
+            {children}
+            <div className={style.ToastMessageProvider}>
+                {
+                    toasts.map((value) => (
+                        <ToastMessageItem 
+                        key={value.id} 
+                        message={value.message} 
+                        title={value.title} 
+                        type={value.type} 
+                        removeFromListFunc={value.removeFromListFunc}
+                        />
+                    ))
+                }
+            </div>
+        </ToastMessageContext.Provider>
     )
 }
 

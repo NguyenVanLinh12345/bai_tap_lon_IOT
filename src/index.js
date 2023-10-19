@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import GlobalStyle from "./globalStyle";
 import Provider from './myContext/Provider';
+import ToastMessageProvider from './components/base/toast_message/ToastMessageProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
     <GlobalStyle>
       <BrowserRouter>
         <Provider>
-          <App />
+          <ToastMessageProvider>
+            <App />
+          </ToastMessageProvider>
         </Provider>
       </BrowserRouter>
     </GlobalStyle>

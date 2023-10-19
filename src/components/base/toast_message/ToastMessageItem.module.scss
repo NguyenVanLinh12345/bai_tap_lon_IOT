@@ -1,12 +1,16 @@
 .ToastMessageItem {
+    pointer-events: auto;
     display: flex;
     align-items: center;
     box-shadow: 0 0 0.4rem 0.2rem var(--shadow);
     padding: 1.2rem 0.8rem;
     width: 36rem;
 
-    margin-left: 4rem;
-    margin-top: 4rem;
+    // margin-left: 4rem;
+    margin-top: 2rem;
+    background-color:  var(--background);
+    animation: slideInLeft ease 0.5s, fadeOut linear 1s 5s forwards;
+    // transition: all linear 0.4s;
 
     .icon {
         font-size: 2.4rem;
@@ -54,5 +58,21 @@
     border-left: 0.6rem solid var(--blur_gray);
     .toast_icon{
         color: var(--gray);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(calc(100% + 3.2rem));
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes fadeOut {
+    to {
+        opacity: 0;
     }
 }

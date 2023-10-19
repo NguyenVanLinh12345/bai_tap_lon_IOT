@@ -6,6 +6,7 @@ import Employees from './pages/Employees';
 import Machines from './pages/Machines';
 import Loading from './components/base/Loading';
 import Home from './pages/Home';
+import EmployeeMachinePage from './pages/EmployeeMachinePage';
 
 import Context from './myContext/Context';
 function App() {
@@ -13,11 +14,12 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/login' element={<Login />} />
         <Route path='/*' element={<Home />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/home' element={<Home />} />
-        <Route path='/employees' element={<Employees />} />
+        <Route path='/employee' element={<Employees />} />
         <Route path='/machine' element={<Machines />} />
+        <Route path='/employee-machine' element={<EmployeeMachinePage />} />
       </Routes>
 
       {
