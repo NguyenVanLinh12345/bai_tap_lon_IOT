@@ -32,6 +32,8 @@ function EmployeeMachineItem() {
             </div>
 
             <div className={style.thong_so_trung}>
+                <span className={`${style.thong_so} ${style.dark_blue}`}>Loại trứng: Trứng Gà</span>
+                <br/>
                 <span className={`${style.thong_so} ${style.dark_blue}`}>Ngày nở dự kiến: 20/10/2023</span>
             </div>
 
@@ -39,6 +41,8 @@ function EmployeeMachineItem() {
                 <div className={style.thong_so_container}>
                     <button className={style.button}>Đảo trứng</button>
                     <span className={`${style.thong_so} ${style.green}`}>Trạng thái: Đang đảo</span>
+                    <br></br>
+                    <span className={`${style.thong_so} ${style.green}`}>Chu kỳ đảo: 2h/lần</span>
                     {/* <span className={`${style.thong_so} ${style.red}`}>Trạng thái: Đang đảo</span> */}
                 </div>
                 <p>Lần đảo trứng gần đây:</p>
@@ -52,8 +56,8 @@ function EmployeeMachineItem() {
             </div>
 
             <div className={style.tinh_trang_may}>
-                <p>Tình trạng: <span>máy hoạt động bình thường</span></p>
-                {/* <p>Tình trạng: <span>máy đang có lỗi ở bộ phận gia nhiệt cho lò ấp</span></p> */}
+                {/* <p>Tình trạng: <span>máy hoạt động bình thường</span></p> */}
+                <p>Tình trạng: <span>máy đang có lỗi ở bộ phận gia nhiệt cho lò ấp</span></p>
             </div>
         </div>
     )
