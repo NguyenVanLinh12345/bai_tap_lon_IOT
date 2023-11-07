@@ -1,0 +1,15 @@
+.XemNhanVien {
+    .input_container {
+        margin-bottom: 1.2rem;
+        font-size: 1.6rem;
+        padding: 0 4rem;
+
+        .label_input {
+            display: inline-block;
+            width: 9rem;
+        }
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,45 @@
+.SuaNhanVien {
+
+    .input_container {
+        margin-bottom: 1.2rem;
+        font-size: 1.6rem;
+        padding: 0 4rem;
+
+        .label_input {
+            display: inline-block;
+            width: 9rem;
+        }
+
+        .input_noi_dung {
+            font-size: inherit;
+            padding: 0.4rem 0.8rem;
+            border: 0.1rem solid var(--blue);
+
+            &:focus {
+                outline: 0.1rem solid var(--blur_blue);
+
+            }
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        input[type="radio"] {
+            margin-right: 1.6rem;
+            margin-left: 0.4rem;
+        }
+    }
+
+    .end_button{
+        float: right;
+        button{
+            padding: 0.8rem 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 0.4rem;
+            font-size: 2rem;
+            margin-left: 1.2rem;
+        }
+    }
+}

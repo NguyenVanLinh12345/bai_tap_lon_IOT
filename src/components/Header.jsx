@@ -8,6 +8,8 @@ import user from '../assets/image/User-avatar.svg.png';
 import { logout } from '../function/AccountFunction';
 import { useState } from 'react';
 import Container from './base/Container';
+import MyInfo from './MyInfo';
+
 function Header() {
     const [detailOpenState, setDetailOpenState] = useState(false);
     const listHeader = [
@@ -62,7 +64,7 @@ function Header() {
             {
                 detailOpenState
                     ?
-                    <Container closeContainer={() => setDetailOpenState(false)}><div>hello nha</div></Container>
+                    <Container closeContainer={() => setDetailOpenState(false)}><MyInfo /></Container>
                     : ""
             }
         </div>

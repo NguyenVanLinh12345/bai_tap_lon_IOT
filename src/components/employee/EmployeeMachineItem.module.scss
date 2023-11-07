@@ -7,13 +7,20 @@
     display: inline-block;
     border-radius: 2rem;
     font-size: 1.6rem;
-    // width: 32rem;
 
-    .thong_so_header_container {
+    // width: 32rem;
+    .box {
+        border-radius: 0.8rem;
+        // box-shadow: 0 0 0.4rem 0.2rem var(--shadow) inset;
+        background-color: rgb(244, 243, 243);
+    }
+
+    .thong_so {
         display: flex;
 
-        .thong_so_chinh {
-            width: 30%;
+        .nhiet_do_do_am {
+            @extend .box;
+            width: 35%;
             font-size: 2rem;
             font-weight: bold;
             display: flex;
@@ -22,13 +29,11 @@
             flex-wrap: wrap;
 
             padding: 0.4rem 0.8rem;
-            border-radius: 0.8rem;
-            box-shadow: 0 0 0.4rem 0.2rem var(--shadow) inset;
-            background-color: rgb(244, 243, 243);
 
-            .icon_thong_so{
+            .icon_thong_so {
                 font-size: 2.4rem;
             }
+
             .color_red {
                 color: var(--red);
             }
@@ -40,16 +45,15 @@
         }
 
         .thong_so_phu {
-            width: 70%;
+            width: 65%;
             padding-left: 1.2rem;
 
+
             .thong_so {
+                @extend .box;
                 padding: 0.4rem 0.8rem;
-                border-radius: 0.8rem;
                 font-weight: bold;
                 margin-bottom: 0.8rem;
-                background-color: rgb(244, 243, 243);
-                box-shadow: 0 0 0.4rem 0.2rem var(--shadow) inset;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -59,33 +63,133 @@
 
     }
 
-    .thong_so_container {
-        .button {
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.4rem;
-            background-color: var(--orange);
+    .thong_tin_trung {
+        margin-top: 0.8rem;
+        display: flex;
+        justify-content: space-around;
+
+        .item_thong_tin_trung {
+            @extend .box;
+            padding: 0.8rem;
         }
     }
 
-    .thong_tin_container {
-        padding: 1.2rem 0.8rem;
-        border-radius: 0.8rem;
-        box-shadow: 0 0 0.4rem 0.2rem var(--shadow) inset;
-        margin-top: 1.2rem;
-    }
+    .thong_tin_may_ap {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.8rem;
+        // background-color: var(--blur_gray);
 
-    .tinh_trang_may{
-        // text-align: center;
-        max-width: 30rem;
+        .item_thong_tin_may_ap {
+            .thong_tin_dao {
+                display: flex;
+                justify-content: space-around;
+
+                .button_dao_trung {
+                    height: 6rem;
+                    width: 6rem;
+                    border-radius: 50%;
+                }
+
+                .thong_tin_dao_chi_tiet {
+                    @extend .box;
+                    padding: 0.4rem;
+                    margin-left: 0.4rem;
+                }
+            }
+
+            .binh_nuoc {
+                height: 15rem;
+                width: 10rem;
+                overflow: hidden;
+                border: 0.1rem solid var(--black);
+                border-radius: 0.4rem;
+                background-color: white;
+                position: relative;
+
+                .thong_tin_nuoc {
+                    position: absolute;
+                    top: 50%;
+                    left: 1rem;
+                    transform: translateY(-50%);
+
+                    
+                    p {
+                        text-align: center;
+                        font-size: 2rem;
+                    }
+                }
+                
+                .nuoc {
+                    // background-color: rgb(212, 241, 249);
+                    background-color: rgb(111, 221, 252);
+                    height: 15rem;
+                    width: 10rem;
+                    animation: showWater 0.4s ease-out forwards;
+                }
+            }
+
+            .tinh_trang_may {
+                width: 10rem;
+                padding: 0.4rem 0;
+                text-align: center;
+                margin-top: 0.4rem;
+                border-radius: 0.4rem;
+                position: relative;
+                cursor: context-menu;
+
+                .danh_sach_van_de {
+                    display: none;
+                    top: 3rem;
+                    left: 5rem;
+                    position: absolute;
+                    background-color: white;
+                    padding: 0.8rem;
+                    border-radius: 0.8rem;
+                    width: 20rem;
+                    text-align: left;
+                    border: 0.1rem solid var(--gray);
+                    li{
+                        list-style-type: none;
+                        background-color: rgb(251, 225, 184);
+                        margin-bottom: 0.4rem;
+                        padding: 0.2rem;
+                        border-radius: 0.4rem;
+                        
+                        &:last-child{
+                            margin-bottom: 0;
+                        }
+                    }
+
+                }
+                &:hover .danh_sach_van_de{
+                        display: block;
+                }
+            }
+
+            .thong_tin_dao_truoc {
+                @extend .box;
+                margin-top: 0.8rem;
+                padding: 0.8rem;
+            }
+        }
     }
 }
 
-.green {
-    box-shadow: 0 0 0.4rem 0.2rem rgba(20, 232, 34, 0.4);
-    background-color: rgba(119, 255, 56, 0.3);
+@keyframes showWater {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
 }
 
-.red {
-    box-shadow: 0 0 0.4rem 0.2rem rgba(255, 88, 88, 0.4);
-    background-color: rgba(224, 154, 154, 0.2);
+.bg_red {
+    background-color: var(--red);
+}
+
+.bg_green {
+    background-color: var(--green);
 }

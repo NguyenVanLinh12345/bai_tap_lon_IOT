@@ -1,6 +1,10 @@
 import { Fragment } from "react";
 import Header from "../components/Header";
-import TableBase from "../components/base/TableBase"
+import TableBase from "../components/base/TableBase";
+
+import ThemNhanVien from "../components/admin/quan_ly_nhan_vien/ThemNhanVien";
+import XemNhanVien from "../components/admin/quan_ly_nhan_vien/XemNhanVien";
+import SuaNhanVien from "../components/admin/quan_ly_nhan_vien/SuaNhanVien";
 
 function Employees() {
     //demo data
@@ -29,9 +33,7 @@ function Employees() {
             width: "15%",
         }
     ];
-    const createComponent = <div>Đây là component tạo mới</div>
-    const editComponent = <div>Đây là component sửa</div>
-    const viewComponent = <div>Đây là component xem</div>
+
     return (
         <Fragment>
             <Header />
@@ -40,9 +42,9 @@ function Employees() {
                 title={title}
                 urlFetch={urlFetch}
                 urlDelete={urlDelete}
-                createComponent={createComponent}
-                editComponent={editComponent}
-                viewComponent={viewComponent}
+                createComponent={<ThemNhanVien />}
+                editComponent={<SuaNhanVien />}
+                viewComponent={<XemNhanVien />}
             />
         </Fragment>
     )
