@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import style from './TableBase.module.scss';
-import { AiFillEye, AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 import Container from './Container';
 
 import Context from '../../myContext/Context';
+import TableLineBase from './TableLineBase';
 function TableBase({ title = "Tiêu đề trống", colums = [], createComponent = null, editComponent = null, viewComponent = null, urlDelete = "", urlFetch = ""}) {
     const [state, dispatch] = useContext(Context);
     const [modalType, setModalType] = useState(null);
@@ -22,20 +22,6 @@ function TableBase({ title = "Tiêu đề trống", colums = [], createComponent
                 console.error(error);
             });
     };
-
-    const deleteRow = (myId) => {
-        const result = window.confirm(`Bạn muốn xóa hàng ${myId}`);
-        if (result) {
-            fetch(urlDelete + myId)
-                .then((response) => response.json())
-                .then((data) => {
-                    alert("Xóa thành công " + data.id);
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-        }
-    }
 
     useEffect(() => {
         loadTableData();
@@ -62,18 +48,15 @@ function TableBase({ title = "Tiêu đề trống", colums = [], createComponent
                             </tr>
                             :
                             data.map((value, rowIndex) => (
-                                <tr key={rowIndex}>
-                                    {
-                                        colums.map((colum, columIndex) => (
-                                            colum.dataIndex !== "action" ? <td key={columIndex}>{value[colum.dataIndex]}</td> : ""
-                                        ))
-                                    }
-                                    <td>
-                                        <span title='Xem' onClick={()=>setModalType(viewComponent)} className={`${style.action_icon} ${style.blue}`}><AiFillEye /></span>
-                                        <span title='Sửa' onClick={()=>setModalType(editComponent)} className={`${style.action_icon} ${style.green}`}><AiFillEdit /></span>
-                                        <span title='Xóa' onClick={() => deleteRow(value.id)} className={`${style.action_icon} ${style.red}`}><AiFillDelete /></span>
-                                    </td>
-                                </tr>
+                                <TableLineBase
+                                colums={colums}
+                                row={value}
+                                key={rowIndex}
+                                editComponent={editComponent}
+                                viewComponent={viewComponent}
+                                setModalType={setModalType}
+                                urlDelete={urlDelete}
+                                />
                             ))
                     }
                 </tbody>

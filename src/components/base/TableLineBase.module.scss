@@ -1,0 +1,29 @@
+.TableLineBase{
+    .action_icon {
+        padding: 0.4rem 0.8rem;
+        margin-right: 0.8rem;
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
+        display: inline-block;
+        border-radius: 0.8rem;
+        text-align: center;
+        font-size: 2rem;
+        cursor: pointer;
+
+        &.blue {
+            background-color: rgb(146, 237, 216);
+        }
+
+        &.green {
+            background-color: rgb(117, 237, 111);
+        }
+
+        &.red {
+            background-color: rgb(246, 73, 73);
+        }
+
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+}
