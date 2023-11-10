@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import style from './SuaNhanVien.module.scss';
+import style from './SuaMayAp.module.scss';
 
-function SuaNhanVien({ wId, reloadTableFunc }) {
+function SuaMayAp({ wId, reloadTableFunc }) {
     const [info, setInfo] = useState(
         {
             name: "null",
@@ -26,8 +26,8 @@ function SuaNhanVien({ wId, reloadTableFunc }) {
     };
 
     return (
-        <div className={style.SuaNhanVien}>
-            <h2>Sửa nhân viên</h2>
+        <div className={style.SuaMayAp}>
+            <h2>Sửa máy ấp</h2>
             <div className={style.input_container}>
                 <label className={style.label_input} htmlFor="name">Tên</label>
                 <input
@@ -72,4 +72,4 @@ function SuaNhanVien({ wId, reloadTableFunc }) {
         </div>
     )
 }
-export default SuaNhanVien;
+export default SuaMayAp;

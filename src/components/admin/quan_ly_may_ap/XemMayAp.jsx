@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import style from './XemNhanVien.module.scss';
+import style from './XemMayAp.module.scss';
 import { useState } from 'react';
 
 function XemNhanVien({ wId }) {
@@ -12,7 +12,6 @@ function XemNhanVien({ wId }) {
         }
     );
     useEffect(() => {
-        console.log("id của nhân viên là: " + wId);
         fetch(`https://dummyjson.com/products/${wId}`)
             .then(response => response.json())
             .then(data => {
@@ -29,8 +28,8 @@ function XemNhanVien({ wId }) {
     }, [wId]);
 
     return (
-        <div className={style.XemNhanVien}>
-            <h2>Xem nhân viên</h2>
+        <div className={style.XemMayAp}>
+            <h2>Xem Máy ấp</h2>
             <div className={style.input_container}>
                 <label className={style.label_input}>Tên</label>
                 <span>{info.name}</span>

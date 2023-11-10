@@ -1,15 +1,15 @@
 import { Fragment, useState } from "react";
 
 import TableBase from '../../base/TableBase';
-import ThemNhanVien from "./ThemNhanVien";
-import XemNhanVien from "./XemNhanVien";
-import SuaNhanVien from "./SuaNhanVien";
+import ThemMayAp from "./ThemMayAp";
+import XemMayAp from "./XemMayAp";
+import SuaMayAp from "./SuaMayAp";
 
-function DanhSachNhanVien() {
+function DanhSachMayAp() {
     //demo data
     const urlFetch = "https://dummyjson.com/products";
     const urlDelete = "https://dummyjson.com/products/";
-    const title = "Nhân viên";
+    const title = "Máy ấp";
     const colums = [
         {
             title: "Title",
@@ -43,13 +43,13 @@ function DanhSachNhanVien() {
     const openModalTypeFunc = (value) => {
         switch (value.type) {
             case "add":
-                setModalType(<ThemNhanVien reloadTableFunc={reloadTable} />)
+                setModalType(<ThemMayAp reloadTableFunc={reloadTable} />)
                 break;
             case "edit":
-                setModalType(<SuaNhanVien wId={value.wId} reloadTableFunc={reloadTable} />)
+                setModalType(<SuaMayAp wId={value.wId} reloadTableFunc={reloadTable} />)
                 break;
             case "view":
-                setModalType(<XemNhanVien wId={value.wId} />)
+                setModalType(<XemMayAp wId={value.wId} />)
                 break;
             default:
                 console.error("không phát hiện được sự kiện trong danh sách nhân viên");
@@ -72,4 +72,4 @@ function DanhSachNhanVien() {
     )
 }
 
-export default DanhSachNhanVien;
+export default DanhSachMayAp;

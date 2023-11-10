@@ -1,14 +1,14 @@
-import style from './ThemNhanVien.module.scss';
+import style from './ThemMayAp.module.scss';
 
-function ThemNhanVien({reloadTableFunc}) {
+function ThemMayAp({reloadTableFunc}) {
 
     const submit = () => {
         reloadTableFunc();
     };
 
     return (
-        <div className={style.ThemNhanVien}>
-            <h2>Thêm nhân viên</h2>
+        <div className={style.ThemMayAp}>
+            <h2>Thêm máy ấp</h2>
             <div className={style.input_container}>
                 <label className={style.label_input} htmlFor="name">Tên</label>
                 <input className={style.input_noi_dung} id='name' type="text" />
@@ -46,4 +46,4 @@ function ThemNhanVien({reloadTableFunc}) {
         </div>
     )
 }
-export default ThemNhanVien;
+export default ThemMayAp;
