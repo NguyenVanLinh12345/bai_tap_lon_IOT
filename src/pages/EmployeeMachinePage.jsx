@@ -1,4 +1,4 @@
-import EmployeeMachineItem from "../components/employee/EmployeeMachineItem";
+import DanhSachMayApEmployee from "../components/employee/DanhSachMayApEmployee";
 import Header from '../components/Header';
 
 function EmployeeMachinePage() {
@@ -6,7 +6,7 @@ function EmployeeMachinePage() {
     return (
         <div>
             <Header />
-            <EmployeeMachineItem />
+            <DanhSachMayApEmployee />
         </div>
     )
 }

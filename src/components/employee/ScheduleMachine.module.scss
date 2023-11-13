@@ -1,0 +1,153 @@
+.ScheduleMachine {
+    width: 40rem;
+    position: fixed;
+    top: 7.4rem;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    box-shadow: 0rem 0.4rem 0.4rem 0.2rem var(--gray);
+    padding: 1.2rem;
+
+    overflow-y: auto;
+
+    animation: showToast 0.2s ease-out;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+    &::-webkit-scrollbar-corner {
+        background: #f1f1f1;
+    }
+    &::-webkit-resizer {
+        background: #f1f1f1;
+    }
+    .close_container{
+        display: flex;
+        justify-content: end;
+
+        span{
+            font-size: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.4rem;
+            background-color: var(--orange);
+            width: 4rem;
+            height: 4rem;
+            cursor: pointer;
+
+            &:hover{
+                background-color: var(--red);
+            }
+        }
+    }
+
+    .chon_thong_tin_trung {
+        div {
+            margin-top: 1.6rem;
+        }
+
+        .chon_loai_trung {
+            label {
+                width: 12rem;
+                display: inline-block;
+            }
+
+            select {
+                width: 20rem;
+                padding: 0.4rem 0.8rem;
+
+                option {
+                    padding: 0 0.8rem;
+                }
+            }
+        }
+
+        .chon_ngay_ap {
+            .ngay_ap {
+                margin-top: 0.4rem;
+
+                label {
+                    display: inline-block;
+                    width: 12rem;
+                }
+
+                span {
+                    &:first-of-type {
+                        width: 12rem;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+
+        .thong_tin_nhiet_am {
+            padding-left: 12rem;
+
+            span {
+                margin-right: 0.8rem;
+            }
+        }
+    }
+
+    .mo_ta_trung {
+        label {
+            margin-top: 0.8rem;
+            width: 12rem;
+
+            &:first-of-type {
+                display: inline-block;
+            }
+
+            &:last-of-type {
+                display: block;
+            }
+        }
+
+        input {
+            width: 10rem;
+        }
+
+        textarea {
+            display: block;
+            width: 100%;
+            height: 8rem;
+            outline: none;
+            resize: none;
+        }
+    }
+
+    .danh_sach_dang_ap {
+        margin-top: 1.6rem;
+
+        ul {
+            li {
+                list-style-type: none;
+                margin-top: 0.4rem;
+            }
+        }
+    }
+}
+@keyframes showToast {
+    from{
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

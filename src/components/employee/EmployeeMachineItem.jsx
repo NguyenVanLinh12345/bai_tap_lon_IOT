@@ -1,15 +1,17 @@
+import style from './EmployeeMachineItem.module.scss';
+
 import { useEffect, useState } from 'react';
 
 import { getDoc, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 
-import style from './EmployeeMachineItem.module.scss';
 
 import { WiHumidity, WiThermometer } from 'react-icons/wi';
-
+import { CgAddR } from 'react-icons/cg';
 
 import database from '../../config/fireBaseConfig';
 
-function EmployeeMachineItem() {
+function EmployeeMachineItem({setScheduleState}) {
+    const id = 'may1';
     const databaseRef = doc(database, 'ap-trung-iot', 'may1');
     const [thongSoMayAp, setThongSoMayAp] = useState({
         nhietDo: 0,
@@ -20,12 +22,14 @@ function EmployeeMachineItem() {
         luongNuoc: 0 // day la luong nuoc con lai trong may ap, gia tri tu 0 -> 1
     });
 
+    // Loại trứng nở sớm nhất
     const loaiTrung = "Trứng gà";
+    // Ngày nở của loại trứng nở sớm nhất
     const ngayNo = "20/11/2023";
     const chuKy = 2;
 
     const daoTrung = (value) => {
-        updateDoc(databaseRef, { isTurning: value});
+        updateDoc(databaseRef, { isTurning: value });
     }
 
     const tinhTrang = [];
@@ -47,7 +51,7 @@ function EmployeeMachineItem() {
                     }
                     );
                 } else {
-                    console.log("Document does not exist");
+                    console.log("File EmployeeMachineItem");
                 }
             });
 
@@ -125,6 +129,10 @@ function EmployeeMachineItem() {
                         <p>Lần đảo trứng trước:</p>
                         <p>10 giờ 32 phút</p>
                         <p>Ngày 19/10/2023</p>
+                    </div>
+
+                    <div className={style.thong_tin_lich}>
+                        <button onClick={()=>setScheduleState({state: true, id: id})}><CgAddR/> <span>Thêm lịch ấp</span></button>
                     </div>
                 </div>
                 <div className={style.item_thong_tin_may_ap}>

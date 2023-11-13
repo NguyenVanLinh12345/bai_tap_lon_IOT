@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import Login from './components/Login';
 import Employees from './pages/Employees';
 import Machines from './pages/Machines';
+import TypeEggs from './pages/TypeEggs';
 import Loading from './components/base/Loading';
 import Home from './pages/Home';
 import EmployeeMachinePage from './pages/EmployeeMachinePage';
@@ -19,6 +20,7 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/employee' element={<Employees />} />
         <Route path='/machine' element={<Machines />} />
+        <Route path='/type-egg' element={<TypeEggs />} />
         <Route path='/employee-machine' element={<EmployeeMachinePage />} />
       </Routes>
 

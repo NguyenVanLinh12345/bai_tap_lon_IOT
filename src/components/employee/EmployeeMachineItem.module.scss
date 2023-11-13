@@ -78,7 +78,6 @@
         display: flex;
         justify-content: space-between;
         margin-top: 0.8rem;
-        // background-color: var(--blur_gray);
 
         .item_thong_tin_may_ap {
             .thong_tin_dao {
@@ -89,6 +88,12 @@
                     height: 6rem;
                     width: 6rem;
                     border-radius: 50%;
+                    border: none;
+                    box-shadow: 0 0 0.3rem 0.2rem var(--gray);
+
+                    &:active {
+                        box-shadow: 0 0 0.3rem 0.2rem var(--gray) inset;
+                    }
                 }
 
                 .thong_tin_dao_chi_tiet {
@@ -96,6 +101,28 @@
                     padding: 0.4rem;
                     margin-left: 0.4rem;
                 }
+            }
+
+            .thong_tin_lich {
+                margin-top: 0.4rem;
+                padding-left: 1.2rem;
+
+                button {
+                    font-weight: bold;
+                    cursor: pointer;
+                    padding: 0.6rem;
+                    width: 80%;
+                    background-color: rgb(255, 170, 170);
+                    border: none;
+                    border-radius: 0.4rem;
+                    box-shadow: 0 0 0.4rem 0.1rem var(--red);
+                    font-size: 1.4rem;
+
+                    &:active {
+                        box-shadow: 0 0 0.4rem 0.1rem var(--red) inset;
+                    }
+                }
+
             }
 
             .binh_nuoc {
@@ -113,13 +140,13 @@
                     left: 1rem;
                     transform: translateY(-50%);
 
-                    
+
                     p {
                         text-align: center;
                         font-size: 2rem;
                     }
                 }
-                
+
                 .nuoc {
                     // background-color: rgb(212, 241, 249);
                     background-color: rgb(111, 221, 252);
@@ -149,21 +176,23 @@
                     width: 20rem;
                     text-align: left;
                     border: 0.1rem solid var(--gray);
-                    li{
+
+                    li {
                         list-style-type: none;
                         background-color: rgb(251, 225, 184);
                         margin-bottom: 0.4rem;
                         padding: 0.2rem;
                         border-radius: 0.4rem;
-                        
-                        &:last-child{
+
+                        &:last-child {
                             margin-bottom: 0;
                         }
                     }
 
                 }
-                &:hover .danh_sach_van_de{
-                        display: block;
+
+                &:hover .danh_sach_van_de {
+                    display: block;
                 }
             }
 

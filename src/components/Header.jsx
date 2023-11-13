@@ -25,6 +25,11 @@ function Header() {
         },
         {
             id: 3,
+            link: "/type-egg",
+            title: "Danh sách loại trứng"
+        },
+        {
+            id: 4,
             link: "/employee-machine",
             title: "Danh sách máy ấp (client)"
         }
