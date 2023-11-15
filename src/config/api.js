@@ -1,4 +1,12 @@
+// const baseAPI = "http://localhost:8080/";
+
 const api = {
+    baseAPI: "http://localhost:8080/",
+
+    // login & create
+    login: "api/v1/login",
+    createAccount: "api/v1/signup?role=1",
+
     // User
     getListUser: "",
     getUser: "",

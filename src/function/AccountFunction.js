@@ -1,15 +1,36 @@
-function login(email, password, callback) {
+import api from "../config/api";
+
+function login(email, password, callback, showToast) {
     // Gửi yêu cầu đăng nhập đến API
     if (email !== null && email !== "" & password !== null & password !== "") {
-        fetch("https://jsonplaceholder.typicode.com/todos/1")
-            .then((response) => response.json())
+        fetch(api.baseAPI + api.login, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Sai mật khẩu hoặc email");
+                }
+                return response.text();
+            })
             .then((data) => {
-                localStorage.setItem("token", JSON.stringify(data));
+                localStorage.setItem("token", data);
+                showToast("Đăng nhập", "Đăng nhập thành công", "success");
                 callback();
             })
             .catch((error) => {
-                console.error("Đăng nhập không thành công: " + error);
+                // console.log(Object.keys(error));
+                showToast("Đăng nhập không thành công", error.message, "error");
             });
+    }
+    else{
+        showToast("Cảnh báo", "Vui lòng điền đầy đủ thông tin đăng nhập", 'warn');
     }
 }
 
