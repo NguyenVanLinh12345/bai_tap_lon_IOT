@@ -4,11 +4,12 @@ import TableBase from '../../base/table/TableBase';
 import ThemLoaiTrung from "./ThemLoaiTrung";
 import XemLoaiTrung from "./XemLoaiTrung";
 import SuaLoaiTrung from "./SuaLoaiTrung";
+import api from "../../../config/api";
 
 function DanhSachLoaiTrung() {
     //demo data
-    const urlFetch = "https://mocki.io/v1/123587b8-d6f7-43d0-8dbc-0468a49f88d0";
-    const urlDelete = "https://dummyjson.com/products/";
+    const urlFetch = api.getListTypeEgg;
+    const urlDelete = api.deleteTypeEgg;
     const title = "Loại trứng";
     const colums = [
         {

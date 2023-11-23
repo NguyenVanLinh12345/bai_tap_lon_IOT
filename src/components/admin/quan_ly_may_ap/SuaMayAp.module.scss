@@ -10,11 +10,11 @@
             width: 9rem;
         }
 
-        .input_noi_dung {
+        .input_noi_dung, select{
             font-size: inherit;
             padding: 0.4rem 0.8rem;
             border: 0.1rem solid var(--blue);
-
+            min-width: 25rem;
             &:focus {
                 outline: 0.1rem solid var(--blur_blue);
 

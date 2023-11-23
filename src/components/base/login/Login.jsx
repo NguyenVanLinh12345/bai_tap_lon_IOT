@@ -30,7 +30,7 @@ function Login() {
                     <span title='Xem mật khẩu' onClick={() => setSeePass(!seePass)} className={style.password_icon}>{seePass ? <AiFillEye /> : <AiFillEyeInvisible />}</span>
                 </div>
 
-                <button onClick={() => { login(email, password, () => navigate("/"), showToast) }} className={style.button_login}>Đăng nhập</button>
+                <button onClick={() => { login(email, password, () => navigate("/home"), showToast) }} className={style.button_login}>Đăng nhập</button>
             </div>
         </div>
     )

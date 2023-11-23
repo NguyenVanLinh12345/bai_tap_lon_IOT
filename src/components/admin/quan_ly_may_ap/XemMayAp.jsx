@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import style from './XemMayAp.module.scss';
 import { useState } from 'react';
+import fetchData from '../../../function/fetch';
+import api from '../../../config/api';
 
 function XemMayAp({ wId }) {
     const [info, setInfo] = useState(
@@ -11,8 +13,10 @@ function XemMayAp({ wId }) {
         }
     );
     useEffect(() => {
-        console.log("ID may ap: " + wId);
-        fetch(`https://mocki.io/v1/1ce2c4e3-67de-433a-a595-1ffa3d89966c`)
+        fetchData({
+            subUrl: api.getMachine + wId,
+            method: "GET"
+        })
             .then(response => response.json())
             .then(data => {
                 setInfo({

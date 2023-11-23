@@ -1,24 +1,31 @@
 import api from '../config/api';
 
-async function fetchData(subUrl, method, data) {
+// doi tuong nhan vao:
+// value = {subUrl: "stirng", method: "string", data: Object}
+async function fetchData(value) {
+  // console.log(value)
   const headers = {
     "Content-Type": "application/json",
-    "Authentication": "Bearer " + (localStorage.getItem("token") ? localStorage.getItem("token") : "")
+    "Authorization": "Bearer " + (localStorage.getItem("token") ? localStorage.getItem("token") : "")
   };
 
   const requestOptions = {
-    method: method,
+    method: value.method,
     headers: headers,
   };
 
-  if (method !== "GET") {
-    requestOptions.body = JSON.stringify(data);
+  if (value.method !== "GET") {
+    if(value.data){
+      requestOptions.body = JSON.stringify(value.data);
+    }
   }
 
-  return fetch(api.baseAPI + subUrl, requestOptions)
+  // console.log(requestOptions)
+  return fetch(api.baseAPI + value.subUrl, requestOptions)
     .then(response => {
       if (!response.ok) {
-        throw new Error("Có lỗi trong việc nhận dữ liệu");
+        console.log(response)
+        throw new Error("Có lỗi trong việc gửi/nhận dữ liệu");
       }
       return response;
     })

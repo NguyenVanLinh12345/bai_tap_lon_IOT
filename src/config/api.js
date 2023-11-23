@@ -5,24 +5,26 @@ const api = {
 
     // login & create
     login: "api/v1/login",
-    createAccount: "api/v1/signup?role=1",
 
     // User
     getListUser: "admin/api/users",
-    getUser: "",
+    getListUserByrole: "admin/api/users?role=",
+    getUser: "admin/api/user?id=",
     createUser: "api/v1/signup?role=", //   0: employee, 1: admin, 2: employee + admin
-    updateUser: "",
+    updateUser: "admin/api/user",
     deleteUser: "admin/api/user?id=",
 
     // Machine
     getListMachine: "api/machines",
-    getMachine: "",
+    getListMachineById: "",
+    getMachine: "api/machine?id=",
     createMachine: "api/machine",
-    updateMachine: "",
+    updateMachine: "api/machine",
     deleteMachine: "api/machine?id=",
 
     // Schedule
-    getListSchedule: "",
+    getListSchedule: "api/schedules",
+    getListScheduleById: "",
     getSchedule: "",
     createSchedule: "api/schedule/import",
     updateSchedule: "api/schedule",
@@ -30,17 +32,17 @@ const api = {
 
     // TypeEgg
     getListTypeEgg: "api/typeEgges",
-    getTypeEgg: "",
-    createTypeEgg: "",
-    updateTypeEgg: "",
+    getTypeEgg: "api/typeEgges",
+    createTypeEgg: "api/typeEgg/import",
+    updateTypeEgg: "api/typeEgg/update",
     deleteTypeEgg: "api/typeEgg?id=",
 
     // Problem
-    getListProblem: "",
-    getProblem: "",
-    createProblem: "",
-    updateProblem: "",
-    deleteProblem: "",
+    getListProblemById: "api/problems?machineId=",
+    getProblem: "api/problem?id=",
+    // createProblem: "api/problem",
+    // updateProblem: "",
+    deleteProblem: "api/problem?id=",
 }
 
 export default api;

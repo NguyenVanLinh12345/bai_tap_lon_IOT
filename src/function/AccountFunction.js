@@ -23,6 +23,11 @@ function login(email, password, callback, showToast) {
                 localStorage.setItem("token", data);
                 showToast("Đăng nhập", "Đăng nhập thành công", "success");
                 callback();
+                setTimeout(()=>{
+                    localStorage.removeItem("token");
+                    window.location.reload();
+                },30 * 60 * 1000)
+                window.location.reload();
             })
             .catch((error) => {
                 // console.log(Object.keys(error));
@@ -37,6 +42,7 @@ function login(email, password, callback, showToast) {
 function logout(callback) {
     localStorage.removeItem("token");
     callback();
+    window.location.reload();
 }
 
 export { login, logout };

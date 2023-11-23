@@ -4,11 +4,12 @@ import TableBase from '../../base/table/TableBase';
 import ThemMayAp from "./ThemMayAp";
 import XemMayAp from "./XemMayAp";
 import SuaMayAp from "./SuaMayAp";
+import api from "../../../config/api";
 
 function DanhSachMayAp() {
     //demo data
-    const urlFetch = "https://mocki.io/v1/e2ded413-95ce-4a00-8fc6-6a72d0610cff";
-    const urlDelete = "https://dummyjson.com/products/";
+    const urlFetch = api.getListMachine;
+    const urlDelete = api.deleteMachine;
     const title = "Máy ấp";
     const colums = [
         {
@@ -36,8 +37,8 @@ function DanhSachMayAp() {
     const [modalType, setModalType] = useState(null);
     const [reloadKey, setReloadKey] = useState(false);
     const reloadTable = () => {
-        setModalType(null);
         setReloadKey(!reloadKey);
+        setModalType(null);
     }
 
     const openModalTypeFunc = (value) => {

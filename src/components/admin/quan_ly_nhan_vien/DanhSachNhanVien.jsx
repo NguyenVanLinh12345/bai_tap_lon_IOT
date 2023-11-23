@@ -5,30 +5,32 @@ import ThemNhanVien from "./ThemNhanVien";
 import XemNhanVien from "./XemNhanVien";
 import SuaNhanVien from "./SuaNhanVien";
 
+import api from "../../../config/api";
+
 function DanhSachNhanVien() {
     //demo data
-    const urlFetch = "https://mocki.io/v1/0278212c-523b-4a41-b545-f75824206a2b";
-    const urlDelete = "https://dummyjson.com/products/";
+    const urlFetch = api.getListUser;
+    const urlDelete = api.deleteUser;
     const title = "Nhân viên";
     const colums = [
         {
             title: "Tên nhân viên",
             dataIndex: "name",
-            width: "30%",
+            width: "20%",
         },
         {
             title: "Email",
             dataIndex: "email",
-            width: "25%",
+            width: "20%",
         },
         {
             title: "Mô tả",
             dataIndex: "description",
-            width: "15%",
+            width: "30%",
         },
         {
             title: "Quyền",
-            dataIndex: "role",
+            dataIndex: "roles",
             width: "15%",
         },
         {

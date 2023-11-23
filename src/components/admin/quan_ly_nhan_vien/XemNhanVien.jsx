@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import style from './XemNhanVien.module.scss';
 import { useState } from 'react';
 
+import api from '../../../config/api';
+import fetchData from '../../../function/fetch';
+
 function XemNhanVien({ wId }) {
     const [info, setInfo] = useState(
         {
@@ -12,15 +15,17 @@ function XemNhanVien({ wId }) {
         }
     );
     useEffect(() => {
-        console.log("id của nhân viên là: " + wId);
-        fetch(`https://mocki.io/v1/3790f23f-4421-4ae8-817b-97e1a1cc15a7`)
+        fetchData({
+            subUrl: api.getUser + wId,
+            method: "GET",
+        })
             .then(response => response.json())
             .then(data => {
                 setInfo({
                     name: data.name,
                     email: data.email,
                     description: data.description,
-                    role: data.role
+                    role: data.roles
                 });
             })
             .catch(error => {

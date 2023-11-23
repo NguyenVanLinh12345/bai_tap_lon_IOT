@@ -5,31 +5,38 @@ import { AiFillEye, AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 import Container from '../container/Container';
 import Context from '../../../myContext/Context';
+import ToastMessageContext from '../toast_message/ToastMessageContext';
 
+import fetchData from '../../../function/fetch';
 
 function TableBase({ title = "Tiêu đề trống", colums = [], urlFetch = "", urlDelete, modalType, openModalTypeFunc, closeModalTypeFunc, reloadKey}) {
     const [state, dispatch] = useContext(Context);
     const [data, setData] = useState([]);
+    const showToast = useContext(ToastMessageContext);
+    const [keyDelete, setKeyDeleteReload] = useState(false); 
 
     const deleteRow = (myId) => {
-        const result = window.confirm(`Bạn muốn xóa hàng ${myId}`);
+        const result = window.confirm(`Bạn muốn xóa thông tin có id=${myId}`);
         if (result) {
-            fetch(urlDelete + myId)
-                .then((response) => response.json())
+            fetchData({subUrl: urlDelete + myId, method: "DELETE"})
+                // .then((response) => response.json())
                 .then((data) => {
-                    alert("Xóa thành công " + data.id);
+                    // console.log("Day la trong table base")
+                    // console.log(data);
+                    showToast("Đã xóa", "Xóa đối tượng thành công", "success");
+                    setKeyDeleteReload(!keyDelete);
                 })
                 .catch((error) => {
-                    console.error(error);
+                    showToast("Xóa không thành công", error.message, "error");
                 })
         }
     }
 
     const loadTableData = () => {
         dispatch({ type: "loading", payload: null });
-        fetch(urlFetch)
-            .then((response) => response.json())
-            .then((data) => {
+        fetchData({subUrl: urlFetch, method: "GET"})
+        .then((response) => response.json())
+        .then((data) => {
                 setData(data);
                 dispatch({ type: "un-loading", payload: null });
             })
@@ -40,7 +47,7 @@ function TableBase({ title = "Tiêu đề trống", colums = [], urlFetch = "", 
 
     useEffect(() => {
         loadTableData();
-    }, [reloadKey])
+    }, [reloadKey, keyDelete])
 
     return (
         <div className={style.TableBase}>
