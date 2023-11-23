@@ -1,29 +1,34 @@
 import { Fragment, useState } from "react";
 
-import TableBase from '../../base/TableBase';
+import TableBase from '../../base/table/TableBase';
 import ThemNhanVien from "./ThemNhanVien";
 import XemNhanVien from "./XemNhanVien";
 import SuaNhanVien from "./SuaNhanVien";
 
 function DanhSachNhanVien() {
     //demo data
-    const urlFetch = "https://dummyjson.com/products";
+    const urlFetch = "https://mocki.io/v1/0278212c-523b-4a41-b545-f75824206a2b";
     const urlDelete = "https://dummyjson.com/products/";
     const title = "Nhân viên";
     const colums = [
         {
-            title: "Title",
-            dataIndex: "title",
-            width: "35%",
+            title: "Tên nhân viên",
+            dataIndex: "name",
+            width: "30%",
         },
         {
-            title: "Description",
+            title: "Email",
+            dataIndex: "email",
+            width: "25%",
+        },
+        {
+            title: "Mô tả",
             dataIndex: "description",
-            width: "35%",
+            width: "15%",
         },
         {
-            title: "Brand",
-            dataIndex: "brand",
+            title: "Quyền",
+            dataIndex: "role",
             width: "15%",
         },
         {

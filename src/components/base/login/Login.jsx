@@ -5,10 +5,10 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import style from './Login.module.scss';
 import { useNavigate } from 'react-router-dom';
 
-import { login } from '../function/AccountFunction';
-import ToastMessageContext from './base/toast_message/ToastMessageContext';
+import { login } from '../../../function/AccountFunction';
+import ToastMessageContext from '../toast_message/ToastMessageContext';
 
-function AdminLogin() {
+function Login() {
     const [seePass, setSeePass] = useState(false);
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function AdminLogin() {
     const showToast = useContext(ToastMessageContext);
 
     return (
-        <div className={style.AdminLogin}>
+        <div className={style.Login}>
             <div className={style.form}>
                 <h2>Đăng nhập</h2>
                 <label className={style.label} htmlFor="email">Email</label>
@@ -36,4 +36,4 @@ function AdminLogin() {
     )
 }
 
-export default AdminLogin; 
+export default Login; 

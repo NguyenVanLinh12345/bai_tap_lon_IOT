@@ -13,14 +13,14 @@ function XemNhanVien({ wId }) {
     );
     useEffect(() => {
         console.log("id của nhân viên là: " + wId);
-        fetch(`https://dummyjson.com/products/${wId}`)
+        fetch(`https://mocki.io/v1/3790f23f-4421-4ae8-817b-97e1a1cc15a7`)
             .then(response => response.json())
             .then(data => {
                 setInfo({
-                    name: data.title,
-                    email: data.category,
+                    name: data.name,
+                    email: data.email,
                     description: data.description,
-                    role: data.brand
+                    role: data.role
                 });
             })
             .catch(error => {

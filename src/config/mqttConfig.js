@@ -1,14 +1,14 @@
 import mqtt from "mqtt";
 
-function getMqtt() {
+function getMqtt(machineID) {
     const options = {
-        protocol: 'mqtts',
-        clientId: 'b0908853',
+        protocol: 'mqtt',
+        clientId: `may_${machineID}`,
         username: 'backend_iot',
         password: '12345678'
     }
     // initialize the MQTT client
-    const client = mqtt.connect("mqtt://8daa878d98eb446e8b60cfb52db1277e.s2.eu.hivemq.cloud:8884/mqtt", options);
+    const client = mqtt.connect("mqtt://localhost:8083/mqtt", options);
     // setup the callbacks
     client.on('connect', function () {
         console.log('Connected');

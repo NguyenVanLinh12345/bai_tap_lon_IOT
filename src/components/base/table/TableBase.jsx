@@ -3,8 +3,8 @@ import style from './TableBase.module.scss';
 
 import { AiFillEye, AiFillEdit, AiFillDelete } from "react-icons/ai";
 
-import Container from './Container';
-import Context from '../../myContext/Context';
+import Container from '../container/Container';
+import Context from '../../../myContext/Context';
 
 
 function TableBase({ title = "Tiêu đề trống", colums = [], urlFetch = "", urlDelete, modalType, openModalTypeFunc, closeModalTypeFunc, reloadKey}) {
@@ -30,7 +30,7 @@ function TableBase({ title = "Tiêu đề trống", colums = [], urlFetch = "", 
         fetch(urlFetch)
             .then((response) => response.json())
             .then((data) => {
-                setData(data.products);
+                setData(data);
                 dispatch({ type: "un-loading", payload: null });
             })
             .catch((error) => {

@@ -8,32 +8,32 @@ const api = {
     createAccount: "api/v1/signup?role=1",
 
     // User
-    getListUser: "",
+    getListUser: "admin/api/users",
     getUser: "",
-    createUser: "",
+    createUser: "api/v1/signup?role=", //   0: employee, 1: admin, 2: employee + admin
     updateUser: "",
-    deleteUser: "",
+    deleteUser: "admin/api/user?id=",
 
     // Machine
-    getListMachine: "",
+    getListMachine: "api/machines",
     getMachine: "",
-    createMachine: "",
+    createMachine: "api/machine",
     updateMachine: "",
-    deleteMachine: "",
+    deleteMachine: "api/machine?id=",
 
     // Schedule
     getListSchedule: "",
     getSchedule: "",
-    createSchedule: "",
-    updateSchedule: "",
-    deleteSchedule: "",
+    createSchedule: "api/schedule/import",
+    updateSchedule: "api/schedule",
+    deleteSchedule: "api/schedule?id=",
 
     // TypeEgg
-    getListTypeEgg: "",
+    getListTypeEgg: "api/typeEgges",
     getTypeEgg: "",
     createTypeEgg: "",
     updateTypeEgg: "",
-    deleteTypeEgg: "",
+    deleteTypeEgg: "api/typeEgg?id=",
 
     // Problem
     getListProblem: "",

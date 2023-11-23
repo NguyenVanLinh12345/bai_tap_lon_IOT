@@ -2,24 +2,23 @@ import { useEffect } from 'react';
 import style from './XemMayAp.module.scss';
 import { useState } from 'react';
 
-function XemNhanVien({ wId }) {
+function XemMayAp({ wId }) {
     const [info, setInfo] = useState(
         {
             name: "null",
-            email: "null",
-            description: "null",
-            role: "null"
+            lastEggTurning: "null",
+            cycle: "null",
         }
     );
     useEffect(() => {
-        fetch(`https://dummyjson.com/products/${wId}`)
+        console.log("ID may ap: " + wId);
+        fetch(`https://mocki.io/v1/1ce2c4e3-67de-433a-a595-1ffa3d89966c`)
             .then(response => response.json())
             .then(data => {
                 setInfo({
-                    name: data.title,
-                    email: data.category,
-                    description: data.description,
-                    role: data.brand
+                    name: data.name,
+                    lastEggTurning: data.lastEggTurning,
+                    cycle: data.cycle,
                 });
             })
             .catch(error => {
@@ -31,26 +30,20 @@ function XemNhanVien({ wId }) {
         <div className={style.XemMayAp}>
             <h2>Xem Máy ấp</h2>
             <div className={style.input_container}>
-                <label className={style.label_input}>Tên</label>
+                <label className={style.label_input}>Tên máy ấp</label>
                 <span>{info.name}</span>
             </div>
 
             <div className={style.input_container}>
-                <span className={style.label_input}>Email</span>
-                <span>{info.email}</span>
+                <span className={style.label_input}>Lần đảo trứng trước</span>
+                <span>{info.lastEggTurning}</span>
             </div>
 
             <div className={style.input_container}>
-                <span className={style.label_input}>Mô tả</span>
-                <span>{info.description}</span>
-            </div>
-
-
-            <div className={style.input_container}>
-                <span className={style.label_input}>Quyền</span>
-                <span>{info.role}</span>
+                <span className={style.label_input}>Chu kỳ đảo trứng</span>
+                <span>{info.cycle}</span>
             </div>
         </div>
     )
 }
-export default XemNhanVien;
+export default XemMayAp;

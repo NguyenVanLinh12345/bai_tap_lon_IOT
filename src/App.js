@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 import { useContext } from 'react';
 
-import Login from './components/Login';
+import Login from './components/base/login/Login';
 import Employees from './pages/Employees';
 import Machines from './pages/Machines';
 import TypeEggs from './pages/TypeEggs';
-import Loading from './components/base/Loading';
+import Loading from './components/base/loading/Loading';
 import Home from './pages/Home';
 import EmployeeMachinePage from './pages/EmployeeMachinePage';
 

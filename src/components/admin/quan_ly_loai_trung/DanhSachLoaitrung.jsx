@@ -1,30 +1,35 @@
 import { Fragment, useState } from "react";
 
-import TableBase from '../../base/TableBase';
+import TableBase from '../../base/table/TableBase';
 import ThemLoaiTrung from "./ThemLoaiTrung";
 import XemLoaiTrung from "./XemLoaiTrung";
 import SuaLoaiTrung from "./SuaLoaiTrung";
 
 function DanhSachLoaiTrung() {
     //demo data
-    const urlFetch = "https://dummyjson.com/products";
+    const urlFetch = "https://mocki.io/v1/123587b8-d6f7-43d0-8dbc-0468a49f88d0";
     const urlDelete = "https://dummyjson.com/products/";
     const title = "Loại trứng";
     const colums = [
         {
-            title: "Title",
-            dataIndex: "title",
+            title: "Tên trứng",
+            dataIndex: "name",
             width: "35%",
         },
         {
-            title: "Description",
-            dataIndex: "description",
-            width: "35%",
-        },
-        {
-            title: "Brand",
-            dataIndex: "brand",
+            title: "Nhiệt độ",
+            dataIndex: "temperature",
             width: "15%",
+        },
+        {
+            title: "Độ ẩm",
+            dataIndex: "humidity",
+            width: "15%",
+        },
+        {
+            title: "Số ngày ấp",
+            dataIndex: "numberHatch",
+            width: "20%",
         },
         {
             title: "Hành động",

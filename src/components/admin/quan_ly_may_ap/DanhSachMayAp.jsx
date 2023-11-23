@@ -1,29 +1,29 @@
 import { Fragment, useState } from "react";
 
-import TableBase from '../../base/TableBase';
+import TableBase from '../../base/table/TableBase';
 import ThemMayAp from "./ThemMayAp";
 import XemMayAp from "./XemMayAp";
 import SuaMayAp from "./SuaMayAp";
 
 function DanhSachMayAp() {
     //demo data
-    const urlFetch = "https://dummyjson.com/products";
+    const urlFetch = "https://mocki.io/v1/e2ded413-95ce-4a00-8fc6-6a72d0610cff";
     const urlDelete = "https://dummyjson.com/products/";
     const title = "Máy ấp";
     const colums = [
         {
-            title: "Title",
-            dataIndex: "title",
+            title: "Tên máy ấp",
+            dataIndex: "name",
             width: "35%",
         },
         {
-            title: "Description",
-            dataIndex: "description",
+            title: "Lần đảo trứng trước",
+            dataIndex: "lastEggTurning",
             width: "35%",
         },
         {
-            title: "Brand",
-            dataIndex: "brand",
+            title: "Chu kỳ đảo trứng (giờ)",
+            dataIndex: "cycle",
             width: "15%",
         },
         {

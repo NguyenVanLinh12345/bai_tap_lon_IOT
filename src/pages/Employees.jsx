@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import Header from "../components/Header";
+import Header from '../components/base/header/Header';
 import DanhSachNhanVien from "../components/admin/quan_ly_nhan_vien/DanhSachNhanVien";
 
 function Employees() {

@@ -1,42 +1,29 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 import ScheduleMachine from "./ScheduleMachine";
 import EmployeeMachineItem from "./EmployeeMachineItem";
-// import testMqtt from "../../config/mqttConfig";
-import mqtt from "mqtt";
-import getMqtt from "../../config/mqttConfig";
 
 function DanhSachMayApEmployee() {
     const [scheduleState, setScheduleState] = useState({
         state: false,
-        id: null
+        id: null // day la id cua may
     });
 
-    useEffect(() => {
-        const client = getMqtt();
-
-        const actionMessage = (topic, message) => {
-
-            console.log(topic);
-            console.log(JSON.parse(message));
+    const listMachine = [
+        {
+            id: 1,
+            lastEggTurning: "20/11/2023",
+            cycle: 2
         }
+    ]
 
-        const data = {
-            test: "data1",
-            test1: "data2"
-        }
-        client.onMessage(actionMessage);
-
-        client.subscribe('backend_iot/recei');
-
-        client.publish('backend_iot/send', JSON.stringify(data));
-        return () => {
-            client.end();
-        };
-    }, [])
     return (
         <Fragment>
-            <EmployeeMachineItem setScheduleState={setScheduleState} />
+            {
+                listMachine.map(value=>(
+                    <EmployeeMachineItem key={value.id} clientId={`may_${value.id}`} setScheduleState={setScheduleState} />
+                ))
+            }
             {
                 scheduleState.state
                     ?

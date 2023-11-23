@@ -10,33 +10,33 @@ function ThemLoaiTrung({reloadTableFunc}) {
         <div className={style.ThemLoaiTrung}>
             <h2>Thêm loại trứng để ấp</h2>
             <div className={style.input_container}>
-                <label className={style.label_input} htmlFor="name">Tên</label>
+                <label className={style.label_input} htmlFor="name">Tên trứng</label>
                 <input className={style.input_noi_dung} id='name' type="text" />
             </div>
 
             <div className={style.input_container}>
-                <label className={style.label_input} htmlFor="email">Email</label>
-                <input className={style.input_noi_dung} id='email' type="email" />
+                <label className={style.label_input} htmlFor="temp">Nhiệt độ ấp</label>
+                <input className={style.input_noi_dung} id='temp' type="text" />
             </div>
 
             <div className={style.input_container}>
-                <label className={style.label_input} htmlFor="password">Mật khẩu</label>
-                <input className={style.input_noi_dung} id='password' type="text" />
+                <label className={style.label_input} htmlFor="humidity">Độ ẩm tối thiểu</label>
+                <input className={style.input_noi_dung} id='humidity' type="text" />
+            </div>
+
+            <div className={style.input_container}>
+                <label className={style.label_input} htmlFor="numberHatch">Số ngày ấp</label>
+                <input className={style.input_noi_dung} id='numberHatch' type="text" />
+            </div>
+
+            <div className={style.input_container}>
+                <label className={style.label_input} htmlFor="numberTurn">Số ngày đảo trứng</label>
+                <input className={style.input_noi_dung} id='numberTurn' type="text" />
             </div>
 
             <div className={style.input_container}>
                 <label className={style.label_input} htmlFor="description">Mô tả</label>
                 <textarea className={style.input_noi_dung} id='description' type="text"></textarea>
-            </div>
-
-
-            <div className={style.input_container}>
-                <span className={style.label_input}>Quyền</span>
-                <label htmlFor="admin">ADMIN</label>
-                <input id='admin' name='role' type="radio" value={"ADMIN"} />
-               
-                <label htmlFor="employee">EMPLOYEE</label>
-                <input id='employee' name='role' type="radio" value={"EMPLOYEE"} />
             </div>
 
             <div className={style.end_button}>

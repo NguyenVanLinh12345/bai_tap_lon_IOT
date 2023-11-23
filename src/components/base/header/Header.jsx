@@ -2,13 +2,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineLogout } from "react-icons/hi";
 
 import style from './Header.module.scss';
-import logo from '../assets/image/logo.jpg';
-import user from '../assets/image/User-avatar.svg.png';
+import logo from '../../../assets/image/logo.jpg';
+import user from '../../../assets/image/User-avatar.svg.png';
 
-import { logout } from '../function/AccountFunction';
+import { logout } from '../../../function/AccountFunction';
 import { useState } from 'react';
-import Container from './base/Container';
-import MyInfo from './MyInfo';
+import Container from '../container/Container';
+import MyInfo from '../my_info/MyInfo';
 
 function Header() {
     const [detailOpenState, setDetailOpenState] = useState(false);

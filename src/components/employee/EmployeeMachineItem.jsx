@@ -2,24 +2,20 @@ import style from './EmployeeMachineItem.module.scss';
 
 import { useEffect, useState } from 'react';
 
-import { getDoc, doc, onSnapshot, updateDoc } from 'firebase/firestore';
-
-
 import { WiHumidity, WiThermometer } from 'react-icons/wi';
 import { CgAddR } from 'react-icons/cg';
 
-import database from '../../config/fireBaseConfig';
+import getMqtt from "../../config/mqttConfig";
 
-function EmployeeMachineItem({setScheduleState}) {
-    const id = 'may1';
-    const databaseRef = doc(database, 'ap-trung-iot', 'may1');
+function EmployeeMachineItem({ setScheduleState, clientId }) {
+    const id = 'may_1';
     const [thongSoMayAp, setThongSoMayAp] = useState({
-        nhietDo: 0,
-        doAm: 0,
-        co2: 0,
+        nhietDo: 37.5,
+        doAm: 68,
+        co2: 2360,
         nh3: 0,
         trangThaiDao: false,
-        luongNuoc: 0 // day la luong nuoc con lai trong may ap, gia tri tu 0 -> 1
+        luongNuoc: 0.5 // day la luong nuoc con lai trong may ap, gia tri tu 0 -> 1
     });
 
     // Loại trứng nở sớm nhất
@@ -28,54 +24,60 @@ function EmployeeMachineItem({setScheduleState}) {
     const ngayNo = "20/11/2023";
     const chuKy = 2;
 
-    const daoTrung = (value) => {
-        updateDoc(databaseRef, { isTurning: value });
+    const daoTrung = (thisClient) => {
+        thisClient.publish(`${clientId}/esp32`, "bat den");
+        // updateDoc(databaseRef, { isTurning: value });
     }
 
     const tinhTrang = [];
     // const tinhTrang = ["Trứng sắp nở","Hỏng Phần gia nhiệt (bóng đèn)","Hỏng quạt tản nhiệt","Hỏng cảm biết nhiệt độ - độ ẩm"];
 
     useEffect(() => {
-
-        getDoc(databaseRef)
-            .then((docSnapshot) => {
-                if (docSnapshot.exists()) {
-                    const data = docSnapshot.data();
-                    setThongSoMayAp({
-                        nhietDo: data.temperature,
-                        doAm: data.humidity,
-                        co2: data.oxygen,
-                        nh3: data.heartbeat,
-                        trangThaiDao: data.isTurning,
-                        luongNuoc: (data.currentWater / data.maxWater).toFixed(2)
-                    }
-                    );
-                } else {
-                    console.log("File EmployeeMachineItem");
+        const client = getMqtt(clientId);
+        const actionMessage = (topic, message) => {
+            try {
+                const dataRecei = JSON.parse(message);
+                // Nhiệt độ - độ ẩm
+                if (topic === `${clientId}/aht-10`) {
+                    const ndRecei =  Number(dataRecei.temp).toFixed(2)
+                    const daRecei =  Number(dataRecei.humidity).toFixed(2)
+                    setThongSoMayAp({...thongSoMayAp, nhietDo: ndRecei, doAm: daRecei});
                 }
-            });
 
-        const unsubscribe = onSnapshot(databaseRef, (snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.data();
-                setThongSoMayAp({
-                    nhietDo: data.temperature,
-                    doAm: data.humidity,
-                    co2: data.oxygen,
-                    nh3: data.heartbeat,
-                    trangThaiDao: data.isTurning,
-                    luongNuoc: (data.currentWater / data.maxWater).toFixed(2)
+                // Lượng nước
+                if (topic === `${clientId}/hc-sr04`) {
+                    console.log(dataRecei)
+
                 }
-                );
-            } else {
-                alert("Mất kết nối máy ấp trứng");
+
+                // Đảo trứng
+                if (topic === `${clientId}/motor`) {
+                    console.log(dataRecei)
+
+                }
+
+                // Chất lượng không khí
+                // if (topic === `${clientId}/chat-luong-kk`) {
+
+                // }
+            } catch (error) {
+                const decoder = new TextDecoder('utf-8');
+                const decodedString = decoder.decode(message);
+                console.log("EmployeeMachineItem" + decodedString);
             }
-        })
-
-        return () => {
-            unsubscribe();
         }
-    }, [])
+        if (client) {
+            client.onMessage(actionMessage);
+
+            client.subscribe(`${clientId}/aht-10`);
+            client.subscribe(`${clientId}/hc-sr04`);
+            client.subscribe(`${clientId}/motor`);
+            client.subscribe(`${clientId}/esp32`);
+        }
+        return () => {
+            client.end();
+        };
+    }, [clientId])
 
     return (
         <div className={style.EmployeeMachineItem}>
@@ -95,8 +97,9 @@ function EmployeeMachineItem({setScheduleState}) {
                     </p>
                 </div>
                 <div className={style.thong_so_phu}>
-                    <p className={style.thong_so}>CO2: {thongSoMayAp.co2}ppm</p>
-                    <p className={style.thong_so}>NH3: {thongSoMayAp.nh3}ppm</p>
+                    <p className={style.thong_so}>Không khí: {thongSoMayAp.co2}</p>
+                    {/* <p className={style.thong_so}>CO2: {thongSoMayAp.co2}ppm</p> */}
+                    {/* <p className={style.thong_so}>NH3: {thongSoMayAp.nh3}ppm</p> */}
                 </div>
             </div>
 
@@ -132,7 +135,7 @@ function EmployeeMachineItem({setScheduleState}) {
                     </div>
 
                     <div className={style.thong_tin_lich}>
-                        <button onClick={()=>setScheduleState({state: true, id: id})}><CgAddR/> <span>Thêm lịch ấp</span></button>
+                        <button onClick={() => setScheduleState({ state: true, id: id })}><CgAddR /> <span>Thêm lịch ấp</span></button>
                     </div>
                 </div>
                 <div className={style.item_thong_tin_may_ap}>

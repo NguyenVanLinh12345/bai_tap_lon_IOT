@@ -5,13 +5,10 @@ function SuaMayAp({ wId, reloadTableFunc }) {
     const [info, setInfo] = useState(
         {
             name: "null",
-            email: "null",
-            description: "null",
-            role: "null"
         }
     );
     useEffect(() => {
-        fetch("https://mocki.io/v1/6d27e355-38dc-48a0-b861-ed9e006f485e")
+        fetch("https://mocki.io/v1/1ce2c4e3-67de-433a-a595-1ffa3d89966c")
             .then(response => response.json())
             .then(data => {
                 setInfo(data);
@@ -29,42 +26,12 @@ function SuaMayAp({ wId, reloadTableFunc }) {
         <div className={style.SuaMayAp}>
             <h2>Sửa máy ấp</h2>
             <div className={style.input_container}>
-                <label className={style.label_input} htmlFor="name">Tên</label>
+                <label className={style.label_input} htmlFor="name">Tên máy ấp</label>
                 <input
                     value={info.name}
                     onChange={(e) => setInfo({ ...info, name: e.target.value })}
                     className={style.input_noi_dung} id='name' type="text" />
-            </div>
-
-            <div className={style.input_container}>
-                <label className={style.label_input}>Email</label>
-                <input readOnly value={info.email} className={style.input_noi_dung} id='email' type="email" />
-            </div>
-
-            <div className={style.input_container}>
-                <label className={style.label_input} htmlFor="description">Mô tả</label>
-                <textarea
-                    value={info.description}
-                    onChange={(e) => setInfo({ ...info, description: e.target.value })}
-                    className={style.input_noi_dung} id='description' type="text"></textarea>
-            </div>
-
-
-            <div className={style.input_container}>
-                <span className={style.label_input}>Quyền</span>
-                <label htmlFor="admin">ADMIN</label>
-                <input
-                    checked={info.role === "ADMIN"}
-                    onChange={() => setInfo({ ...info, role: "ADMIN" })}
-                    id='admin' name='role' type="radio" />
-
-                <label htmlFor="employee">EMPLOYEE</label>
-                <input
-                    checked={info.role === "EMPLOYEE"}
-                    onChange={() => setInfo({ ...info, role: "EMPLOYEE" })}
-                    id='employee' name='role' type="radio" />
-            </div>
-
+            </div>          
             <div className={style.end_button}>
                 <button className='delete_btn'>Xóa hết</button>
                 <button onClick={submit} className='submit_btn'>Gửi</button>

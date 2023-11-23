@@ -1,5 +1,5 @@
 import DanhSachMayApEmployee from "../components/employee/DanhSachMayApEmployee";
-import Header from '../components/Header';
+import Header from '../components/base/header/Header';
 
 function EmployeeMachinePage() {
 
