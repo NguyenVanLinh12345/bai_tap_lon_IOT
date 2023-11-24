@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import style from './XemLoaiTrung.module.scss';
 import { useState } from 'react';
+import fetchData from '../../../function/fetch';
+import api from '../../../config/api';
 
 function XemNhanVien({ wId }) {
     const [info, setInfo] = useState(
@@ -15,9 +17,10 @@ function XemNhanVien({ wId }) {
 
     );
     useEffect(() => {
-        console.log("ID trung: " + wId);
-
-        fetch(`https://mocki.io/v1/315f0e70-301c-45c2-9fc7-c89f712391eb`)
+        fetchData({
+            subUrl: api.getTypeEgg + wId,
+            method: "GET",
+        })
             .then(response => response.json())
             .then(data => {
                 setInfo({

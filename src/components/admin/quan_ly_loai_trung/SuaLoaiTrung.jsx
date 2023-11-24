@@ -1,22 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import style from './SuaLoaiTrung.module.scss';
+import fetchData from '../../../function/fetch';
+import api from '../../../config/api';
+import ToastMessageContext from '../../base/toast_message/ToastMessageContext';
 
 function SuaLoaiTrung({ wId, reloadTableFunc }) {
+    const showToast = useContext(ToastMessageContext);
     const [info, setInfo] = useState(
         {
-            name: null,
-            description: null,
-            temperature: null,
-            numberHatch: null,
-            numberTurn: null,
-            humidity: null
+            name: "",
+            description: "",
+            temperature: "",
+            numberHatch: "",
+            numberTurn: "",
+            humidity: 0
         }
 
     );
     useEffect(() => {
-        console.log("ID trung: " + wId);
-
-        fetch(`https://mocki.io/v1/315f0e70-301c-45c2-9fc7-c89f712391eb`)
+        fetchData({
+            subUrl: api.getTypeEgg + wId,
+            method: "GET",
+        })
             .then(response => response.json())
             .then(data => {
                 setInfo({
@@ -34,7 +39,28 @@ function SuaLoaiTrung({ wId, reloadTableFunc }) {
     }, [wId]);
 
     const submit = () => {
-        reloadTableFunc();
+        fetchData({
+            subUrl: api.updateTypeEgg,
+            method: "PUT",
+            data: {
+                id: wId,
+                name: info.name,
+                humidity: info.humidity,
+                temperature: info.temperature,
+                numberHatch: info.numberHatch,
+                numberTurn: info.numberTurn,
+                description: info.description
+            }
+        })
+            // .then((response) => response.json())
+            .then((data) => {
+                showToast("Sửa loại trứng", "Sửa loại trứng thành công", "success");
+                reloadTableFunc();
+            })
+            .catch((error) => {
+                showToast("Sửa loại trứng", error.message, "error");
+                // reloadTableFunc();
+            })
     };
 
     return (
@@ -52,6 +78,7 @@ function SuaLoaiTrung({ wId, reloadTableFunc }) {
                 <label className={style.label_input} htmlFor="temp">Nhiệt độ ấp</label>
                 <input
                     value={info.temperature}
+                    onChange={(e) => setInfo({ ...info, temperature: e.target.value })}
                     className={style.input_noi_dung} id='temp' type="text" />
             </div>
 
@@ -59,6 +86,7 @@ function SuaLoaiTrung({ wId, reloadTableFunc }) {
                 <label className={style.label_input} htmlFor="humidity">Độ ẩm tối thiểu</label>
                 <input
                     value={info.humidity}
+                    onChange={(e) => setInfo({ ...info, humidity: e.target.value })}
                     className={style.input_noi_dung} id='humidity' type="text" />
             </div>
 
@@ -66,6 +94,7 @@ function SuaLoaiTrung({ wId, reloadTableFunc }) {
                 <label className={style.label_input} htmlFor="numberHatch">Số ngày ấp</label>
                 <input
                     value={info.numberHatch}
+                    onChange={(e) => setInfo({ ...info, numberHatch: e.target.value })}
                     className={style.input_noi_dung} id='numberHatch' type="text" />
             </div>
 
@@ -73,6 +102,7 @@ function SuaLoaiTrung({ wId, reloadTableFunc }) {
                 <label className={style.label_input} htmlFor="numberTurn">Số ngày đảo trứng</label>
                 <input
                     value={info.numberTurn}
+                    onChange={(e) => setInfo({ ...info, numberTurn: e.target.value })}
                     className={style.input_noi_dung} id='numberTurn' type="text" />
             </div>
 

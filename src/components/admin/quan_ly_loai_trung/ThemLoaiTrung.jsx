@@ -1,35 +1,42 @@
 import style from './ThemLoaiTrung.module.scss';
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+
+import fetchData from '../../../function/fetch';
+import api from '../../../config/api';
+import ToastMessageContext from '../../base/toast_message/ToastMessageContext';
 
 function ThemLoaiTrung({reloadTableFunc}) {
+    const showToast = useContext(ToastMessageContext);
     const [eggInfo, setEggInfo] = useState({
-        name: null,
-        temp: null,
-        humidity: null,
-        dayHatch: null,
-        dayTurn: null,
-        description: null
+        name: "",
+        temp: "",
+        humidity: "",
+        numberHatch: "",
+        numberTurn: "",
+        description: ""
     })
 
     const submit = () => {
         fetchData({
-            subUrl: api.createUser + info.role,
+            subUrl: api.createTypeEgg,
             method: "POST",
             data: {
-                name: info.name,
-                email: info.email,
-                password: info.password,
-                description: info.description
+               name: eggInfo.name,
+               temperature: eggInfo.temp,
+               humidity: eggInfo.humidity,
+               numberHatch: eggInfo.numberHatch,
+               numberTurn: eggInfo.numberTurn,
+               description: eggInfo.description
             }
         })
             // .then((response) => response.json())
             .then((data) => {
-                showToast("Thêm nhân viên", "Thêm nhân viên thành công", "success");
+                showToast("Thêm loại trứng", "Thêm loại trứng thành công", "success");
                 reloadTableFunc();
             })
             .catch((error) => {
-                showToast("Thêm nhân viên", error.message, "error");
+                showToast("Thêm loại trứng", error.message, "error");
                 // reloadTableFunc();
             })
     };
@@ -64,16 +71,16 @@ function ThemLoaiTrung({reloadTableFunc}) {
             <div className={style.input_container}>
                 <label className={style.label_input} htmlFor="numberHatch">Số ngày ấp</label>
                 <input 
-                value={eggInfo.dayHatch}
-                onChange = {(e)=>{setEggInfo({...eggInfo, dayHatch: e.target.value})}}
+                value={eggInfo.numberHatch}
+                onChange = {(e)=>{setEggInfo({...eggInfo, numberHatch: e.target.value})}}
                  className={style.input_noi_dung} id='numberHatch' type="text" />
             </div>
 
             <div className={style.input_container}>
                 <label className={style.label_input} htmlFor="numberTurn">Số ngày đảo trứng</label>
                 <input 
-                value={eggInfo.dayTurn}
-                onChange = {(e)=>{setEggInfo({...eggInfo, dayTurn: e.target.value})}}
+                value={eggInfo.numberTurn}
+                onChange = {(e)=>{setEggInfo({...eggInfo, numberTurn: e.target.value})}}
                  className={style.input_noi_dung} id='numberTurn' type="text" />
             </div>
 

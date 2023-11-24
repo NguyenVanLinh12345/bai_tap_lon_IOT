@@ -32,7 +32,7 @@ const api = {
 
     // TypeEgg
     getListTypeEgg: "api/typeEgges",
-    getTypeEgg: "api/typeEgges",
+    getTypeEgg: "api/typeEgg?id=",
     createTypeEgg: "api/typeEgg/import",
     updateTypeEgg: "api/typeEgg/update",
     deleteTypeEgg: "api/typeEgg?id=",
