@@ -16,7 +16,7 @@ const api = {
 
     // Machine
     getListMachine: "api/machines",
-    getListMachineById: "",
+    getListMachineById: "api/machines/",
     getMachine: "api/machine?id=",
     createMachine: "api/machine",
     updateMachine: "api/machine",
@@ -24,7 +24,7 @@ const api = {
 
     // Schedule
     getListSchedule: "api/schedules",
-    getListScheduleById: "",
+    getListScheduleById: "api/schedules?machineId=",
     getSchedule: "",
     createSchedule: "api/schedule/import",
     updateSchedule: "api/schedule",

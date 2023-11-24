@@ -6,9 +6,11 @@ import { WiHumidity, WiThermometer } from 'react-icons/wi';
 import { CgAddR } from 'react-icons/cg';
 
 import getMqtt from "../../config/mqttConfig";
+// import api from '../../config/api';
 
-function EmployeeMachineItem({ setScheduleState, clientId }) {
-    const id = 'may_1';
+function EmployeeMachineItem({ setScheduleState, clientId, machineId, cycle, lastEggTurning }) {
+    const [tinhTrang, setTinhTrang] = useState([]);
+    // const tinhTrang = ["Trứng sắp nở","Hỏng Phần gia nhiệt (bóng đèn)","Hỏng quạt tản nhiệt","Hỏng cảm biết nhiệt độ - độ ẩm"];
     const [thongSoMayAp, setThongSoMayAp] = useState({
         nhietDo: 37.5,
         doAm: 68,
@@ -22,16 +24,11 @@ function EmployeeMachineItem({ setScheduleState, clientId }) {
     const loaiTrung = "Trứng gà";
     // Ngày nở của loại trứng nở sớm nhất
     const ngayNo = "20/11/2023";
-    const chuKy = 2;
 
     const daoTrung = (thisClient) => {
         thisClient.publish(`${clientId}/esp32`, "bat den");
         // updateDoc(databaseRef, { isTurning: value });
     }
-
-    const tinhTrang = [];
-    // const tinhTrang = ["Trứng sắp nở","Hỏng Phần gia nhiệt (bóng đèn)","Hỏng quạt tản nhiệt","Hỏng cảm biết nhiệt độ - độ ẩm"];
-
     useEffect(() => {
         const client = getMqtt(clientId);
         const actionMessage = (topic, message) => {
@@ -77,8 +74,22 @@ function EmployeeMachineItem({ setScheduleState, clientId }) {
         return () => {
             client.end();
         };
-    }, [clientId])
+    }, [clientId]);
 
+    // useEffect(() => {
+    //     fetchData({
+    //         // tương lai phải đổi lại thành get by user id để chỉ lấy ra các máy mà user quản lý
+    //         subUrl: api,
+    //         method: "GET"
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setTinhTrang(data);
+    //         })
+    //         .catch((error) => {
+    //             showToast("Thêm lịch ấp", error.message, "error");
+    //         })
+    // }, []);
     return (
         <div className={style.EmployeeMachineItem}>
 
@@ -124,18 +135,18 @@ function EmployeeMachineItem({ setScheduleState, clientId }) {
                         </div>
                         <div className={style.thong_tin_dao_chi_tiet}>
                             <p>Chu kỳ:</p>
-                            <p>{chuKy}h/lần</p>
+                            <p>{cycle}h/lần</p>
                         </div>
                     </div>
 
                     <div className={style.thong_tin_dao_truoc}>
                         <p>Lần đảo trứng trước:</p>
-                        <p>10 giờ 32 phút</p>
-                        <p>Ngày 19/10/2023</p>
+                        <p>{lastEggTurning}</p>
+                        {/* <p>Ngày 19/10/2023</p> */}
                     </div>
 
                     <div className={style.thong_tin_lich}>
-                        <button onClick={() => setScheduleState({ state: true, id: id })}><CgAddR /> <span>Thêm lịch ấp</span></button>
+                        <button onClick={() => setScheduleState({ state: true, id: machineId })}><CgAddR /> <span>Thêm lịch ấp</span></button>
                     </div>
                 </div>
                 <div className={style.item_thong_tin_may_ap}>
