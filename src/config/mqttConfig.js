@@ -3,7 +3,7 @@ import mqtt from "mqtt";
 function getMqtt(machineID) {
     const options = {
         protocol: 'mqtt',
-        clientId: `may_${machineID}`,
+        clientId: machineID,
         username: 'backend_iot',
         password: '12345678'
     }

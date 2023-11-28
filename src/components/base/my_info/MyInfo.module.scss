@@ -1,9 +1,9 @@
-.MyInfo{
-
+.MyInfo {
     .input_container {
         margin-bottom: 1.2rem;
         font-size: 1.6rem;
         padding: 0 4rem;
+        background-color: white;
 
         .label_input {
             display: inline-block;
@@ -31,9 +31,10 @@
         }
     }
 
-    .end_button{
+    .end_button {
         float: right;
-        button{
+
+        button {
             padding: 0.8rem 1.2rem;
             font-weight: bold;
             border: none;

@@ -17,11 +17,12 @@ function DanhSachMayApEmployee() {
     useEffect(() => {
         fetchData({
             // tương lai phải đổi lại thành get by user id để chỉ lấy ra các máy mà user quản lý
-            subUrl: api.getListMachine,
+            subUrl: api.getMyMachine,
             method: "GET"
         })
             .then((response) => response.json())
             .then((data) => {
+                // console.log(data);
                 setListMachine(data);
                 // data = {
                 //     cycle: 2,
@@ -31,6 +32,7 @@ function DanhSachMayApEmployee() {
                 //     lastEggTurning: null,
                 //     message: null,
                 //     name: "Thử nghiệm 123"
+                //     listProblem: []
                 // }
             })
             .catch((error) => {
@@ -43,12 +45,15 @@ function DanhSachMayApEmployee() {
             {
                 listMachine.map(value => (
                     <EmployeeMachineItem
+                        key={value.id}
+                        name={value.name}
                         cycle={value.cycle}
                         lastEggTurning={value.lastEggTurning ? value.lastEggTurning : "Chưa có dữ liệu"}
-                        key={value.id}
-                        clientId={`may_${value.id}`}
+                        clientId={value.id}
                         machineId={value.id}
-                        setScheduleState={setScheduleState} />
+                        listProblem={value.listProblem}
+                        setScheduleState={setScheduleState}
+                    />
                 ))
             }
             {

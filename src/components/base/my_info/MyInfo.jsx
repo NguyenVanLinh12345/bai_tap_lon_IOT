@@ -1,24 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import style from './MyInfo.module.scss';
 
+import fetchData from '../../../function/fetch';
+import api from '../../../config/api';
+import ToastMessageContext from '../toast_message/ToastMessageContext';
+
 function MyInfo() {
+    const showToast = useContext(ToastMessageContext);
     const [info, setInfo] = useState(
         {
             name: "null",
             email: "null",
             password: "",
             description: "null",
-            role: "null"
+            roles: "null"
         }
     );
     useEffect(() => {
-        fetch("https://mocki.io/v1/6d27e355-38dc-48a0-b861-ed9e006f485e")
+        fetchData({
+            subUrl: api.getMyInfo,
+            method: "GET"
+        })
             .then(response => response.json())
             .then(data => {
-                setInfo({...data, password: ""});
+                setInfo(data);
             })
             .catch(error => {
-                console.error(error);
+                showToast("Lấy thông tin bản thân", error.message, "error");
             })
     }, []);
 
@@ -52,14 +60,14 @@ function MyInfo() {
                 <label className={style.label_input} htmlFor="description">Mô tả</label>
                 <textarea
                     value={info.description}
-                    onChange={(e) => setInfo({ ...info, description: e.target.value})}
+                    onChange={(e) => setInfo({ ...info, description: e.target.value })}
                     className={style.input_noi_dung} id='description' type="text"></textarea>
             </div>
 
 
             <div className={style.input_container}>
                 <span className={style.label_input}>Quyền</span>
-                <span>{info.role}</span>
+                <span>{info.roles}</span>
             </div>
 
             <div className={style.end_button}>

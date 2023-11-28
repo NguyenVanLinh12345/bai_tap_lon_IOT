@@ -12,6 +12,7 @@ import EmployeeMachinePage from './pages/EmployeeMachinePage';
 import Context from './myContext/Context';
 function App() {
   const [state, dispatch] = useContext(Context);
+
   let token = null;
   if (localStorage.getItem("token")) {
     token = localStorage.getItem("token");
@@ -26,14 +27,8 @@ function App() {
         <Route path='/machine' element={<Machines />} />
         <Route path='/type-egg' element={<TypeEggs />} />
         <Route path='/employee-machine' element={<EmployeeMachinePage />} /> */}
-        <Route
-          path="/"
-          element={token ? <Home /> : <Navigate to="/login" replace />}
-        />
-        <Route
-          path="/login"
-          element={token ? <Navigate to="/" replace /> : <Login />}
-        />
+        <Route path="/" element={token ? <Home /> : <Navigate to="/login" replace />} />
+        <Route path="/login" element={token ? <Navigate to="/" replace /> : <Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/employee" element={token ? <Employees /> : <Navigate to="/login" replace />} />
         <Route path="/machine" element={token ? <Machines /> : <Navigate to="/login" replace />} />

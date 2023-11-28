@@ -8,6 +8,7 @@ const api = {
 
     // User
     getListUser: "admin/api/users",
+    getMyInfo: "api/user/infoDetail",
     getListUserByrole: "admin/api/users?role=",
     getUser: "admin/api/user?id=",
     createUser: "api/v1/signup?role=", //   0: employee, 1: admin, 2: employee + admin
@@ -16,6 +17,7 @@ const api = {
 
     // Machine
     getListMachine: "api/machines",
+    getMyMachine: "api/machines/user",
     getListMachineById: "api/machines/",
     getMachine: "api/machine?id=",
     createMachine: "api/machine",

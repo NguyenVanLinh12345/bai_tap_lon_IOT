@@ -17,10 +17,11 @@ function login(email, password, callback, showToast) {
                 if (!response.ok) {
                     throw new Error("Sai mật khẩu hoặc email");
                 }
-                return response.text();
+                return response.json();
             })
             .then((data) => {
-                localStorage.setItem("token", data);
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("role", data.role);
                 showToast("Đăng nhập", "Đăng nhập thành công", "success");
                 callback();
                 setTimeout(()=>{
@@ -41,6 +42,7 @@ function login(email, password, callback, showToast) {
 
 function logout(callback) {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     callback();
     window.location.reload();
 }

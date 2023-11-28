@@ -8,55 +8,82 @@ import { CgAddR } from 'react-icons/cg';
 import getMqtt from "../../config/mqttConfig";
 // import api from '../../config/api';
 
-function EmployeeMachineItem({ setScheduleState, clientId, machineId, cycle, lastEggTurning }) {
-    const [tinhTrang, setTinhTrang] = useState([]);
-    // const tinhTrang = ["Trứng sắp nở","Hỏng Phần gia nhiệt (bóng đèn)","Hỏng quạt tản nhiệt","Hỏng cảm biết nhiệt độ - độ ẩm"];
+// const [tinhTrang, setTinhTrang] = useState([]);
+// const tinhTrang = ["Trứng sắp nở","Hỏng Phần gia nhiệt (bóng đèn)","Hỏng quạt tản nhiệt","Hỏng cảm biết nhiệt độ - độ ẩm"];
+
+function EmployeeMachineItem({ name, setScheduleState, clientId, machineId, cycle, lastEggTurning, listProblem }) {
     const [thongSoMayAp, setThongSoMayAp] = useState({
-        nhietDo: 37.5,
-        doAm: 68,
-        co2: 2360,
-        nh3: 0,
+        nhietDo: 0,
+        doAm: 0,
+        kk: "Tốt",
         trangThaiDao: false,
-        luongNuoc: 0.5 // day la luong nuoc con lai trong may ap, gia tri tu 0 -> 1
+        luongNuoc: 0.5, // day la luong nuoc con lai trong may ap, gia tri tu 0 -> 1
+        checkND: true
     });
 
-    // Loại trứng nở sớm nhất
-    const loaiTrung = "Trứng gà";
-    // Ngày nở của loại trứng nở sớm nhất
-    const ngayNo = "20/11/2023";
-
-    const daoTrung = (thisClient) => {
-        thisClient.publish(`${clientId}/esp32`, "bat den");
-        // updateDoc(databaseRef, { isTurning: value });
+    const [myClient, setClient] = useState(null);
+    const daoTrung = () => {
+        // tat dao trung
+        if (thongSoMayAp.trangThaiDao === true) {
+            setThongSoMayAp({ ...thongSoMayAp, trangThaiDao: false });
+            myClient.publish(`${name}/motor-btn`, '0');
+        }
+        // bat dao trung
+        else {
+            setThongSoMayAp({ ...thongSoMayAp, trangThaiDao: true });
+            myClient.publish(`${name}/motor-btn`, '1');
+        }
     }
     useEffect(() => {
-        const client = getMqtt(clientId);
+        const client = getMqtt(name);
+        setClient(client);
         const actionMessage = (topic, message) => {
             try {
                 const dataRecei = JSON.parse(message);
                 // Nhiệt độ - độ ẩm
-                if (topic === `${clientId}/aht-10`) {
-                    const ndRecei =  Number(dataRecei.temp).toFixed(2)
-                    const daRecei =  Number(dataRecei.humidity).toFixed(2)
-                    setThongSoMayAp({...thongSoMayAp, nhietDo: ndRecei, doAm: daRecei});
+                if (topic === `${name}/aht-10`) {
+                    // console.log(dataRecei)
+                    const ndRecei = Number(dataRecei.temp).toFixed(2);
+                    const daRecei = Number(dataRecei.humidity).toFixed(2);
+                    if (thongSoMayAp.checkND && thongSoMayAp.nhietDo !== 0) {
+                        setThongSoMayAp({ ...thongSoMayAp, nhietDo: ndRecei, doAm: daRecei });
+                        thongSoMayAp.checkND = false;
+                    }
                 }
 
                 // Lượng nước
-                if (topic === `${clientId}/hc-sr04`) {
-                    console.log(dataRecei)
-
-                }
-
-                // Đảo trứng
-                if (topic === `${clientId}/motor`) {
-                    console.log(dataRecei)
-
+                if (topic === `${name}/hc-sr04`) {
+                    // console.log(dataRecei)
+                    setThongSoMayAp({ ...thongSoMayAp, luongNuoc: Number(((dataRecei.maxHeight - dataRecei.currentHeight) / dataRecei.maxHeight), 0) })
                 }
 
                 // Chất lượng không khí
-                // if (topic === `${clientId}/chat-luong-kk`) {
+                if (topic === `${name}/mq-135`) {
+                    // console.log(dataRecei);
+                    if (dataRecei.analog > 2200) {
+                        setThongSoMayAp({ ...thongSoMayAp, kk: "Không tốt" });
+                    }
+                    else {
+                        setThongSoMayAp({ ...thongSoMayAp, kk: "Tốt" });
+                    }
+                }
 
-                // }
+                // Đảo trứng
+                if (topic === `${name}/motor`) {
+                    console.log(dataRecei);
+                }
+
+                // Đảo trứng
+                if (topic === `${name}/light-bulb`) {
+                    console.log(dataRecei);
+                }
+
+                // Đảo trứng
+                if (topic === `${name}/humidifier`) {
+                    console.log(dataRecei);
+                }
+
+
             } catch (error) {
                 const decoder = new TextDecoder('utf-8');
                 const decodedString = decoder.decode(message);
@@ -66,32 +93,22 @@ function EmployeeMachineItem({ setScheduleState, clientId, machineId, cycle, las
         if (client) {
             client.onMessage(actionMessage);
 
-            client.subscribe(`${clientId}/aht-10`);
-            client.subscribe(`${clientId}/hc-sr04`);
-            client.subscribe(`${clientId}/motor`);
-            client.subscribe(`${clientId}/esp32`);
+            client.subscribe(`${name}/aht-10`);
+            client.subscribe(`${name}/hc-sr04`);
+            client.subscribe(`${name}/mq-135`);
+
+            // phan nay de phat hien loi
+            client.subscribe(`${name}/motor`);
+            client.subscribe(`${name}/light-bulb`);
+            client.subscribe(`${name}/humidifier`);
         }
         return () => {
             client.end();
         };
-    }, [clientId]);
+    }, []);
 
-    // useEffect(() => {
-    //     fetchData({
-    //         // tương lai phải đổi lại thành get by user id để chỉ lấy ra các máy mà user quản lý
-    //         subUrl: api,
-    //         method: "GET"
-    //     })
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setTinhTrang(data);
-    //         })
-    //         .catch((error) => {
-    //             showToast("Thêm lịch ấp", error.message, "error");
-    //         })
-    // }, []);
     return (
-        <div className={style.EmployeeMachineItem}>
+        <div title={name} className={style.EmployeeMachineItem}>
 
             <div className={style.thong_so}>
                 <div className={style.nhiet_do_do_am}>
@@ -108,13 +125,11 @@ function EmployeeMachineItem({ setScheduleState, clientId, machineId, cycle, las
                     </p>
                 </div>
                 <div className={style.thong_so_phu}>
-                    <p className={style.thong_so}>Không khí: {thongSoMayAp.co2}</p>
-                    {/* <p className={style.thong_so}>CO2: {thongSoMayAp.co2}ppm</p> */}
-                    {/* <p className={style.thong_so}>NH3: {thongSoMayAp.nh3}ppm</p> */}
+                    <p className={style.thong_so}>Không khí: {thongSoMayAp.kk}</p>
                 </div>
             </div>
 
-            <div className={style.thong_tin_trung}>
+            {/* <div className={style.thong_tin_trung}>
                 <div className={style.item_thong_tin_trung}>
                     <p>Loại trứng:</p>
                     <p>{loaiTrung}</p>
@@ -123,14 +138,14 @@ function EmployeeMachineItem({ setScheduleState, clientId, machineId, cycle, las
                     <p>Dự kiến nở:</p>
                     <p>{ngayNo}</p>
                 </div>
-            </div>
+            </div> */}
 
 
             <div className={style.thong_tin_may_ap}>
                 <div className={style.item_thong_tin_may_ap}>
                     <div className={style.thong_tin_dao}>
                         <div>
-                            <button onClick={() => daoTrung(!thongSoMayAp.trangThaiDao)} className={`${style.button_dao_trung} ${thongSoMayAp.trangThaiDao ? style.bg_red : style.bg_green}`}>{thongSoMayAp.trangThaiDao ? "Ngưng đảo" : "Đảo trứng"}</button>
+                            <button onClick={() => daoTrung()} className={`${style.button_dao_trung} ${thongSoMayAp.trangThaiDao ? style.bg_red : style.bg_green}`}>{thongSoMayAp.trangThaiDao ? "Ngưng đảo" : "Đảo trứng"}</button>
 
                         </div>
                         <div className={style.thong_tin_dao_chi_tiet}>
@@ -157,17 +172,17 @@ function EmployeeMachineItem({ setScheduleState, clientId, machineId, cycle, las
                             <p>~20 ngày</p>
                         </div>
                     </div>
-                    <div className={`${style.tinh_trang_may} ${tinhTrang.length === 0 ? style.bg_green : style.bg_red}`}>
+                    <div className={`${style.tinh_trang_may} ${listProblem.length === 0 ? style.bg_green : style.bg_red}`}>
                         <span>Tình trạng</span>
                         {
-                            tinhTrang.length === 0
+                            listProblem.length === 0
                                 ?
                                 null
                                 :
                                 <ul className={style.danh_sach_van_de}>
                                     {
-                                        tinhTrang.map((value, index) => (
-                                            <li key={index}>{index + 1}. {value}</li>
+                                        listProblem.map((value, index) => (
+                                            <li key={index}>{index + 1}. {value.description}</li>
                                         ))
                                     }
                                 </ul>

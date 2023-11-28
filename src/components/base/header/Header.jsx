@@ -6,34 +6,49 @@ import logo from '../../../assets/image/logo.jpg';
 import user from '../../../assets/image/User-avatar.svg.png';
 
 import { logout } from '../../../function/AccountFunction';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Container from '../container/Container';
 import MyInfo from '../my_info/MyInfo';
 
 function Header() {
     const [detailOpenState, setDetailOpenState] = useState(false);
-    const listHeader = [
-        {
-            id: 1,
-            link: "/employee",
-            title: "Danh sách nhân viên"
-        },
-        {
-            id: 2,
-            link: "/machine",
-            title: "Danh sách máy ấp"
-        },
-        {
-            id: 3,
-            link: "/type-egg",
-            title: "Danh sách loại trứng"
-        },
-        {
-            id: 4,
-            link: "/employee-machine",
-            title: "Danh sách máy ấp (client)"
+    const [listHeader, setListHeader] = useState([]);
+    useEffect(()=>{
+        const header_admin = [
+            {
+                id: 1,
+                link: "/employee",
+                title: "Danh sách nhân viên"
+            },
+            {
+                id: 2,
+                link: "/machine",
+                title: "Danh sách máy ấp"
+            },
+            {
+                id: 3,
+                link: "/type-egg",
+                title: "Danh sách loại trứng"
+            }
+        ];
+        const header_employee = [
+            {
+                id: 4,
+                link: "/employee-machine",
+                title: "Danh sách máy ấp (client)"
+            }
+        ];
+
+        if(localStorage.getItem("role")){
+            const myRole = localStorage.getItem("role");
+            if (myRole == "ADMIN"){
+                setListHeader(header_admin);
+            }
+            else{
+                setListHeader(header_employee);
+            }
         }
-    ];
+    }, [])
     // const listDropDorwn = [];
     const navigate = useNavigate();
     return (
