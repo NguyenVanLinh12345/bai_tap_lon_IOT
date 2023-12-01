@@ -20,14 +20,10 @@ function login(email, password, callback, showToast) {
                 return response.json();
             })
             .then((data) => {
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("role", data.role);
+                sessionStorage.setItem("token", data.token);
+                sessionStorage.setItem("role", data.role);
                 showToast("Đăng nhập", "Đăng nhập thành công", "success");
                 callback();
-                setTimeout(()=>{
-                    localStorage.removeItem("token");
-                    window.location.reload();
-                },30 * 60 * 1000)
                 window.location.reload();
             })
             .catch((error) => {
@@ -35,49 +31,37 @@ function login(email, password, callback, showToast) {
                 showToast("Đăng nhập không thành công", error.message, "error");
             });
     }
-    else{
+    else {
         showToast("Cảnh báo", "Vui lòng điền đầy đủ thông tin đăng nhập", 'warn');
     }
 }
 
 function logout(callback) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
     callback();
     window.location.reload();
 }
 
-export { login, logout };
+function getRole() {
+    if (sessionStorage.getItem("role")) {
+        return sessionStorage.getItem("role");
+    }
+    return null;
+};
 
+function checkHaveToken() {
+    if (sessionStorage.getItem("token")) {
+        return true;
+    }
+    return false;
+};
 
-// fetch("http://localhost:8080/api/login", {
-//                 method: 'POST',
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                 },
-//                 body: JSON.stringify({
-//                     email: email,
-//                     password: pass
-//                 })
-//             })
-//                 .then((response) => {
-//                     if (!response.ok) {
-//                         throw new Error("Sai mat khau hoac email");
-//                     }
-//                     return response.text();
-//                 })
-//                 .then((data) => {
-//                     document.querySelector("#token").value = data;
-//                 })
-//                 .catch((error) => alert(error.message));
+function getToken() {
+    if (sessionStorage.getItem("token")) {
+        return sessionStorage.getItem("token");
+    }
+    return null;
+}
 
-
-// fetch("http://localhost:8080/api/welcome", {
-//                 method: 'GET',
-//                 headers: {
-//                     'Authorization': `Bearer ${token}`
-//                 }
-//             })
-//                 .then((response) => response.text())
-//                 .then((data) => console.log(data))
-//                 .catch((error) => console.error(error))
+export { login, logout, getRole, checkHaveToken, getToken };

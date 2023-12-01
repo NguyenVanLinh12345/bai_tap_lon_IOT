@@ -10,13 +10,11 @@ import Home from './pages/Home';
 import EmployeeMachinePage from './pages/EmployeeMachinePage';
 
 import Context from './myContext/Context';
+import { checkHaveToken } from './function/AccountFunction';
 function App() {
   const [state, dispatch] = useContext(Context);
 
-  let token = null;
-  if (localStorage.getItem("token")) {
-    token = localStorage.getItem("token");
-  }
+  let token = checkHaveToken();
   return (
     <div className="App">
       <Routes>

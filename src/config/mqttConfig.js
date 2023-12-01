@@ -17,7 +17,6 @@ function getMqtt(machineID) {
     client.on('error', function (error) {
         console.log(error);
     });
-
     const myClientMqtt = {
         onMessage: function(actionMessage){
             client.on('message', function (topic, message) {
@@ -29,6 +28,9 @@ function getMqtt(machineID) {
         },
         publish: function(publicPath, payload){
             client.publish(publicPath, payload);
+        },
+        unsubscribe: function(){
+            client.unsubscribe();
         },
         end: function(){
             client.end();

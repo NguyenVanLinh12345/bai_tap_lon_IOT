@@ -1,4 +1,5 @@
 import api from '../config/api';
+import { getToken } from './AccountFunction';
 
 // doi tuong nhan vao:
 // value = {subUrl: "stirng", method: "string", data: Object}
@@ -6,7 +7,7 @@ async function fetchData(value) {
   // console.log(value)
   const headers = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer " + (localStorage.getItem("token") ? localStorage.getItem("token") : "")
+    "Authorization": "Bearer " + getToken()
   };
 
   const requestOptions = {

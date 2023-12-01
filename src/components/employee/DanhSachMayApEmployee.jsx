@@ -10,6 +10,7 @@ function DanhSachMayApEmployee() {
     const [listMachine, setListMachine] = useState([]);
     const showToast = useContext(ToastMessageContext);
     const [scheduleState, setScheduleState] = useState({
+        clientMQTT: null,
         state: false,
         id: null // day la id cua may
     });
@@ -59,7 +60,7 @@ function DanhSachMayApEmployee() {
             {
                 scheduleState.state
                     ?
-                    <ScheduleMachine machineId={scheduleState.id} closeFunc={() => setScheduleState({ state: false, id: null })} />
+                    <ScheduleMachine clientMQTT={scheduleState.clientMQTT} machineId={scheduleState.id} closeFunc={() => setScheduleState({ state: false, id: null, clientMQTT: null })} />
                     :
                     null
             }
