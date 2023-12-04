@@ -14,10 +14,10 @@
     background-color: white;
     box-shadow: 0rem 0.4rem 0.4rem 0.2rem var(--gray);
     padding: 1.2rem;
+    animation: showToast 0.2s ease-out;
 
     overflow-y: auto;
 
-    animation: showToast 0.2s ease-out;
 
     &::-webkit-scrollbar {
         width: 8px;

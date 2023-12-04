@@ -1,11 +1,11 @@
 .Header {
-
     .main_header,
     .background_header {
         height: 7.2rem;
     }
-
     .main_header {
+        z-index: 100;
+
         position: fixed;
         left: 0;
         right: 0;
@@ -33,7 +33,7 @@
             padding-left: 2rem;
             display: flex;
             align-items: center;
-            
+
             ul {
                 margin-left: 2rem;
                 display: flex;
@@ -64,18 +64,18 @@
 
             .drop_list {
                 position: relative;
-
+                
                 .list {
+                    
                     display: none;
                     position: absolute;
-                    // display: block;
                     padding: 0.4rem;
                     width: 16rem;
                     bottom: -8rem;
                     right: 2rem;
                     background-color: white;
                     box-shadow: 0 0.2rem 0.6rem 0.2rem var(--shadow);
-
+                    
                     li {
                         list-style-type: none;
 

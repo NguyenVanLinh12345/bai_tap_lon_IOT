@@ -17,7 +17,6 @@ function DanhSachMayApEmployee() {
 
     useEffect(() => {
         fetchData({
-            // tương lai phải đổi lại thành get by user id để chỉ lấy ra các máy mà user quản lý
             subUrl: api.getMyMachine,
             method: "GET"
         })
