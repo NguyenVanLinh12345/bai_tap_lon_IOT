@@ -19,6 +19,8 @@ import ToastMessageContext from '../base/toast_message/ToastMessageContext';
 function EmployeeMachineItem({ name, setScheduleState, machineId, cycle, lastEggTurning, listProblem }) {
     const showToast = useContext(ToastMessageContext);
 
+    const [tinhTrang, setTinhTrang] = useState(listProblem);
+
     const [tempHumi, setTempHumi] = useState({ nhietDo: 0, doAm: 0 });
     const [waterLevel, setWaterLevel] = useState(0);
     const [airQuality, setAirQuality] = useState("Tốt");
@@ -98,22 +100,13 @@ function EmployeeMachineItem({ name, setScheduleState, machineId, cycle, lastEgg
                     }
                 }
 
-                // Đảo trứng
-                if (topic === `${name}/motor`) {
-                    console.log(dataRecei);
+                // phát hiện lỗi hỏng hóc
+                // {name: str, description: str, type: str}
+                if (topic === `${name}/broken`) {
+                    // console.log(dataRecei);
+                    showToast(dataRecei.name, dataRecei.description, dataRecei.type);
+                    setTinhTrang([...tinhTrang, dataRecei.description]);
                 }
-
-                // Đảo trứng
-                if (topic === `${name}/light-bulb`) {
-                    console.log(dataRecei);
-                }
-
-                // Đảo trứng
-                if (topic === `${name}/humidifier`) {
-                    console.log(dataRecei);
-                }
-
-
             } catch (error) {
                 const decoder = new TextDecoder('utf-8');
                 const decodedString = decoder.decode(message);
@@ -128,9 +121,7 @@ function EmployeeMachineItem({ name, setScheduleState, machineId, cycle, lastEgg
             client.subscribe(`${name}/mq-135`);
 
             // phan nay de phat hien loi
-            client.subscribe(`${name}/motor`);
-            client.subscribe(`${name}/light-bulb`);
-            client.subscribe(`${name}/humidifier`);
+            client.subscribe(`${name}/broken`);
         }
         return () => {
             client.end();
@@ -219,17 +210,17 @@ function EmployeeMachineItem({ name, setScheduleState, machineId, cycle, lastEgg
                     <button onClick={() => setScheduleState({ state: true, id: machineId, clientMQTT: myClient, name_machine: name })}><CgAddR /> <span>Thêm lịch ấp</span></button>
                 </div>
                 <div className={style.item_thong_tin_may_ap}>
-                    <div className={`${style.tinh_trang_may} ${listProblem.length === 0 ? style.bg_green : style.bg_red}`}>
+                    <div className={`${style.tinh_trang_may} ${tinhTrang.length === 0 ? style.bg_green : style.bg_red}`}>
                         <span>Tình trạng</span>
                         {
-                            listProblem.length === 0
+                            tinhTrang.length === 0
                                 ?
                                 null
                                 :
                                 <ul className={style.danh_sach_van_de}>
                                     {
-                                        listProblem.map((value, index) => (
-                                            <li key={index}>{index + 1}. {value.description}</li>
+                                        tinhTrang.map((value, index) => (
+                                            <li key={index}>{index + 1}. {value}</li>
                                         ))
                                     }
                                 </ul>
