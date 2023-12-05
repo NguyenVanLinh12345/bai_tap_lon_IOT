@@ -1,6 +1,8 @@
 import style from './EmployeeMachineItem.module.scss';
 
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+
+import { Fragment, useEffect, useState } from 'react';
 
 import { WiHumidity, WiThermometer } from 'react-icons/wi';
 import { CgAddR } from 'react-icons/cg';
@@ -9,28 +11,64 @@ import { MdOutlineAir } from "react-icons/md";
 import getMqtt from "../../config/mqttConfig";
 // import api from '../../config/api';
 
+import ToastMessageContext from '../base/toast_message/ToastMessageContext';
+
 // const [tinhTrang, setTinhTrang] = useState([]);
 // const tinhTrang = ["Trứng sắp nở","Hỏng Phần gia nhiệt (bóng đèn)","Hỏng quạt tản nhiệt","Hỏng cảm biết nhiệt độ - độ ẩm"];
 
 function EmployeeMachineItem({ name, setScheduleState, machineId, cycle, lastEggTurning, listProblem }) {
-    const [tempHumi, setTempHumi] = useState({ nhietDo: 99.9, doAm: 66.66 });
-    const [waterLevel, setWaterLevel] = useState(0.5);
+    const showToast = useContext(ToastMessageContext);
+
+    const [tempHumi, setTempHumi] = useState({ nhietDo: 0, doAm: 0 });
+    const [waterLevel, setWaterLevel] = useState(0);
     const [airQuality, setAirQuality] = useState("Tốt");
     const [turnState, setTurnState] = useState(false);
+    const [predictWater, setPredictWater] = useState("");
 
     const [myClient, setClient] = useState(null);
     const daoTrung = () => {
-        // tat dao trung
-        if (turnState === true) {
-            setTurnState(true);
-            myClient.publish(`${name}/motor-btn`, '0');
-        }
-        // bat dao trung
-        else {
-            setTurnState(false);
-            myClient.publish(`${name}/motor-btn`, '1');
-        }
+        myClient.publish(`${name}/motor-btn`, '1');
+        // // tat dao trung
+        // if (turnState === true) {
+        //     setTurnState(true);
+        //     myClient.publish(`${name}/motor-btn`, '0');
+        // }
+        // // bat dao trung
+        // else {
+        //     setTurnState(false);
+        //     myClient.publish(`${name}/motor-btn`, '1');
+        // }
     }
+
+    const predictWaterFunc = () => {
+        const dataSend = {
+            id: 0,
+            temp: tempHumi.nhietDo,
+            humidity: tempHumi.doAm,
+            currentWater: waterLevel
+        }
+        let url = "http://localhost:8000/predict-water";
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataSend)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(result => {
+                setPredictWater(result.predict);
+            })
+            .catch(error => {
+                showToast("Lỗi khi dự đoán lượng nước", "Hãy kiểm tra lại server python nhé.", "error");
+            });
+    }
+
     useEffect(() => {
         const client = getMqtt(name);
         setClient(client);
@@ -112,12 +150,12 @@ function EmployeeMachineItem({ name, setScheduleState, machineId, cycle, lastEgg
 
         const hc_sr04 = setInterval(() => {
             const water = getRandomValue(3, 7);
-            myClient.publish("may_1/hc-sr04", JSON.stringify({ currentHeight: water, maxHeight: 7 }));
+            myClient.publish("may_1/hc-sr04", JSON.stringify({ currentHeight: water, maxHeight: 9 }));
         }, 2000);
 
         const mq_135 = setInterval(() => {
             const analog = getRandomValue(1700, 2500);
-            myClient.publish("may_1/mq-135", JSON.stringify({analog: analog}));
+            myClient.publish("may_1/mq-135", JSON.stringify({ analog: analog }));
         }, 2000);
 
         return () => {
@@ -161,18 +199,24 @@ function EmployeeMachineItem({ name, setScheduleState, machineId, cycle, lastEgg
                     <p>Lần đảo trước:</p>
                     <p>{lastEggTurning}</p>
                 </div>
-                <div className={style.binh_nuoc}>
+                <div onClick={() => predictWaterFunc()} title='Bấm vào để dự đoán lượng nước' className={style.binh_nuoc}>
                     <div style={{ marginTop: `${15 * (1 - waterLevel)}rem` }} className={style.nuoc}></div>
                     <div className={style.thong_tin_nuoc}>
                         <p>{waterLevel * 100}%</p>
-                        <p>~20 ngày</p>
+                        {
+                            predictWater === ""
+                                ?
+                                <Fragment />
+                                :
+                                <p>~{predictWater} ngày</p>
+                        }
                     </div>
                 </div>
             </div>
 
             <div className={style.end_item}>
                 <div className={style.thong_tin_lich}>
-                    <button onClick={() => setScheduleState({ state: true, id: machineId, clientMQTT: myClient })}><CgAddR /> <span>Thêm lịch ấp</span></button>
+                    <button onClick={() => setScheduleState({ state: true, id: machineId, clientMQTT: myClient, name_machine: name })}><CgAddR /> <span>Thêm lịch ấp</span></button>
                 </div>
                 <div className={style.item_thong_tin_may_ap}>
                     <div className={`${style.tinh_trang_may} ${listProblem.length === 0 ? style.bg_green : style.bg_red}`}>

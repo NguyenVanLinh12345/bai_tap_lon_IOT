@@ -12,7 +12,8 @@ function DanhSachMayApEmployee() {
     const [scheduleState, setScheduleState] = useState({
         clientMQTT: null,
         state: false,
-        id: null // day la id cua may
+        id: null, // day la id cua may
+        name_machine: null
     });
 
     useEffect(() => {
@@ -59,7 +60,7 @@ function DanhSachMayApEmployee() {
             {
                 scheduleState.state
                     ?
-                    <ScheduleMachine clientMQTT={scheduleState.clientMQTT} machineId={scheduleState.id} closeFunc={() => setScheduleState({ state: false, id: null, clientMQTT: null })} />
+                    <ScheduleMachine nameMachine={scheduleState.name_machine} clientMQTT={scheduleState.clientMQTT} machineId={scheduleState.id} closeFunc={() => setScheduleState({ state: false, id: null, clientMQTT: null })} />
                     :
                     null
             }

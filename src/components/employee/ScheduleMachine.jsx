@@ -8,7 +8,7 @@ import ToastMessageContext from '../base/toast_message/ToastMessageContext';
 
 import { formatDateForView, formatDateForInput } from '../../function/formatDate';
 
-function ScheduleMachine({ closeFunc, machineId, clientMQTT }) {
+function ScheduleMachine({ closeFunc, machineId, clientMQTT, nameMachine }) {
     const showToast = useContext(ToastMessageContext);
     const [listSchedule, setListSchedule] = useState([]);
     const [listTypeEgg, setListTypeEgg] = useState([]);
@@ -20,7 +20,8 @@ function ScheduleMachine({ closeFunc, machineId, clientMQTT }) {
         nhietDo: 0,
         doAm: 0,
         soLuong: "",
-        moTa: ""
+        moTa: "",
+        soNgayDao: 0
     })
 
     useEffect(() => {
@@ -58,34 +59,58 @@ function ScheduleMachine({ closeFunc, machineId, clientMQTT }) {
         const dataSend = {
             temp: chooseInfo.nhietDo,
             humidity: chooseInfo.doAm,
-            numberTurn: 10
+            numberTurn: chooseInfo.soNgayDao
         };
-        clientMQTT.publish("hehe", JSON.stringify(dataSend));
-    };    
+        clientMQTT.publish(`${nameMachine}/config`, JSON.stringify(dataSend));
+    };
 
     const submit = () => {
         const conFirmSubmit = window.confirm("Bạn muốn thêm lịch ấp");
         if (conFirmSubmit) {
-            // configMachineMQTT(clientMQTT);
-            // fetchData({
-            //     subUrl: api.createSchedule,
-            //     method: "POST",
-            //     data: {
-            //         fistDay: chooseInfo.ngayAp,
-            //         lastDay: chooseInfo.ngayNo,
-            //         quantity: chooseInfo.soLuong,
-            //         description: chooseInfo.moTa,
-            //         machineId: machineId,
-            //         typeEggId: chooseInfo.idTrung
-            //     }
-            // })
-            //     .then((data) => {
-            //         showToast("Thêm lịch ấp", "Thêm lịch ấp thành công", "success");
-            //         closeFunc();
-            //     })
-            //     .catch((error) => {
-            //         showToast("Thêm lịch ấp", error.message, "error");
-            //     })
+            configMachineMQTT(clientMQTT);
+            fetchData({
+                subUrl: api.createSchedule,
+                method: "POST",
+                data: {
+                    fistDay: chooseInfo.ngayAp,
+                    lastDay: chooseInfo.ngayNo,
+                    quantity: chooseInfo.soLuong,
+                    description: chooseInfo.moTa,
+                    machineId: machineId,
+                    typeEggId: chooseInfo.idTrung
+                }
+            })
+                .then((data) => {
+                    showToast("Thêm lịch ấp", "Thêm lịch ấp thành công", "success");
+                    closeFunc();
+                })
+                .catch((error) => {
+                    showToast("Thêm lịch ấp", error.message, "error");
+                })
+        }
+    }
+
+    const updatAfterDeleteSchedule = (myId)=>{
+        const newSchedule = listSchedule.filter(value => value.id !== myId);
+        setListSchedule(newSchedule);
+    }
+
+    const deleteSchedule = (myId) => {
+        const checkDelete = window.confirm("Bạn chắc chắn muốn xóa lịch ấp?");
+        if (checkDelete) {
+            fetchData({
+                subUrl: api.deleteSchedule + myId,
+                method: "DELETE",
+            })
+                .then((data) => {
+                    showToast("Xóa lịch ấp", "Xóa lịch ấp thành công", "success");
+                    updatAfterDeleteSchedule(myId);
+                    // closeFunc();
+                    
+                })
+                .catch((error) => {
+                    showToast("Xóa lịch ấp", error.message, "error");
+                })
         }
     }
     return (
@@ -113,7 +138,8 @@ function ScheduleMachine({ closeFunc, machineId, clientMQTT }) {
                                 doAm: myChooose.humidity,
                                 ngayNgungDao: ngayNgungDao,
                                 ngayNo: ngayNo,
-                                idTrung: myChooose.id
+                                idTrung: myChooose.id,
+                                soNgayDao: myChooose.numberTurn
                             })
                         }}
                         id='loaiTrung' name="typeEgg">
@@ -188,7 +214,9 @@ function ScheduleMachine({ closeFunc, machineId, clientMQTT }) {
                                     <p>Số lượng: <span>{value.quantity}</span></p>
                                     <p>Mô tả: <span>{value.description}</span></p>
                                 </div>
-                                <span className={style.delete_schedule}>
+                                <span
+                                    onClick={() => deleteSchedule(value.id)}
+                                    className={style.delete_schedule}>
                                     <AiOutlineCloseCircle />
                                 </span>
                             </li>
